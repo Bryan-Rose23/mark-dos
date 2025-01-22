@@ -1,0 +1,6 @@
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\bin\Release\CapaEntidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\bin\Release\CapaEntidades.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Release\CapaEntidades.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Release\CapaEntidades.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Release\CapaEntidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Release\CapaEntidades.pdb

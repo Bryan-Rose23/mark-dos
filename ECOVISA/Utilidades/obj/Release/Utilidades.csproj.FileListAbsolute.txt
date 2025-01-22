@@ -1,0 +1,6 @@
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\bin\Release\Utilidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\bin\Release\Utilidades.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Release\Utilidades.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Release\Utilidades.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Release\Utilidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Release\Utilidades.pdb

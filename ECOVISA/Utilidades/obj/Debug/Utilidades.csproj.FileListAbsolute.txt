@@ -1,0 +1,11 @@
+C:\Users\M4800\source\repos\ECOVISA\Utilidades\bin\Debug\Utilidades.dll
+C:\Users\M4800\source\repos\ECOVISA\Utilidades\bin\Debug\Utilidades.pdb
+C:\Users\M4800\source\repos\ECOVISA\Utilidades\obj\Debug\Utilidades.csproj.CoreCompileInputs.cache
+C:\Users\M4800\source\repos\ECOVISA\Utilidades\obj\Debug\Utilidades.dll
+C:\Users\M4800\source\repos\ECOVISA\Utilidades\obj\Debug\Utilidades.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\bin\Debug\Utilidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\bin\Debug\Utilidades.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.pdb

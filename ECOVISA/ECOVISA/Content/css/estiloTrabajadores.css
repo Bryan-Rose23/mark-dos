@@ -1,0 +1,91 @@
+﻿.lbls {
+    width: 200px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+table.dataTable td {
+    font-size: 14px;
+}
+
+.form-buttons {
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    max-width: 220px;
+}
+
+.container-fluid form .row {
+    margin: 10px;
+}
+
+.container-fluid form .row .form-group {
+    vertical-align: middle;
+    width: 600px;
+}
+
+.container-fluid form .row .form-group input {
+    width: 195px;
+}
+
+.container-fluid form .row .form-group select {
+    width: 195px;
+}
+
+.container-fluid form .row .form-group button {
+    width: 150px;
+}
+
+.container-fluid form .row .form-group .form-input-custom {
+    width: 380px;
+    max-width: 380px;
+}
+
+@media screen and (max-width: 1640px) {
+    .container-fluid form .row .form-group .form-input-custom {
+        width: 315px !important;
+    }
+
+    /*.container-fluid form .row .form-group .select-combo-box {
+        width: 155px !important;
+    }*/
+}
+
+.form-group input:focus, textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+
+input, textarea, button {
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300
+}
+
+.btn-block {
+    text-transform: uppercase;
+    font-size: 15px !important;
+    font-weight: 400;
+    height: 43px;
+    cursor: pointer
+}
+
+.btn-block:hover {
+    color: #fff !important
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0;
+}
+

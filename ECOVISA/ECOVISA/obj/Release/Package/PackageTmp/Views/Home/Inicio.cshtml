@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "ECOVISA";
+}
+
+<header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+        <span class="d-none d-lg-block">@Html.ActionLink("ECOVISA", "Index", "Home", new { area = "" }, new { @class = "span-action-def" })</span>
+        <i class="bx bx-menu toggle-sidebar-btn" onclick="clickToggle();"></i>
+    </div>
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+            <li class="nav-item dropdown pe-3">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <i class="bx bxs-user"></i>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" @*href="users-profile.html"*@>
+                            <span>Cuenta de Usuario</span>
+                        </a>
+                    </li>
+                    <li>
+                        @Html.ActionLink("Cerrar sesión", "CerrarSesion", "Home", new { @class = "dropdown-item d-flex align-items-center" })
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item pe-3">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#">
+                    <i class='bx bxs-help-circle'></i>
+                    <span class="d-none d-md-block ps-2">Ayuda</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        @{ CapaNegocio.clsNegocioMenu cnMenu = new CapaNegocio.clsNegocioMenu();
+            List<CapaEntidades.clsEntidadMenu> listaMenu = cnMenu.cdMenu.ListarMenu();
+        }
+
+        @foreach (var item in listaMenu)
+        {
+            if (item.Nivel == 0 || item.Nivel == 1)
+            {
+                if (item.Hijos == 0)
+                {
+
+                    <li class="nav-item">
+
+
+
+                        <a class="nav-link link-ref" href="@if (item.Ubicacion != "") { @Url.Action(item.Ubicacion.Split('/')[1], item.Ubicacion.Split('/')[0]) } ">
+                            <i class="bx bxs-category"></i>
+                            <span>@item.NombreMenu</span>
+                        </a>
+
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#@($"menu-{item.Id}")" data-bs-toggle="collapse" href="#">
+                            <i class="bx bxs-category"></i>
+                            <span role="button">@item.NombreMenu</span>
+                            <i class="bx bxs-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="menu-@item.Id" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                            @foreach (var subItem in listaMenu)
+                            {
+                                if (subItem.IdPadre == item.Id)
+                                {
+                                    <li>
+                                        <a class="nav-drop-item link-ref" href="@if (subItem.Ubicacion != "") { @Url.Action(subItem.Ubicacion.Split('/')[1], subItem.Ubicacion.Split('/')[0]) } ">
+                                            <i class="bx bxs-circle"></i>
+                                            <span role="button">@subItem.NombreMenu</span>
+                                        </a>
+                                    </li>
+
+                                }
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</aside>
+
+<main id="main" class="main">
+    <div class="d-flex justify-content-center " role="status">
+        <div class="loading text-primary">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div class="container ">
+        <div class="container body-content"></div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+</main>
+
+<input type="hidden" id="hdfUrl" value="@Session["TARGET_PAGE"]" />
+
+<script>
+    $(document).ready(function (event) {
+        var target = $("#hdfUrl").val();
+        $.ajax({
+            url: target,  // Send a GET request to the server
+            type: 'GET',
+            success: function (result) {
+                // Inject the returned HTML (partial view content) into the .body-content area
+            //$("#hdfUrl").val(result);
+                $(".body-content").html(result);
+            },
+            error: function () {
+                alert("Error loading content.");
+            }
+        });
+    });
+
+    $(document).on('click', '.nav-link', function (e) {
+        $('.nav-link').removeClass('link-active');
+        $(this).addClass('link-active');
+    });
+
+    $(document).on('click', '.link-ref', function (e) {
+        e.preventDefault();  // Prevent the default link behavior (full page load)
+        $('.loading').addClass('spinner-border');
+        var url = $(this).attr("href");  // Get the URL from the link
+        $.ajax({
+            url: url,  // Send a GET request to the server
+            type: 'GET',
+            success: function (result) {
+                //$("#hdfUrl").val(result);
+                // Inject the returned HTML (partial view content) into the .body-content area
+                $(".body-content").html(result);
+            },
+            error: function () {
+                alert("Error loading content.");
+            }
+        });
+        $('.loading').removeClass('spinner-border');
+    });
+
+    function clickToggle() {
+        document.querySelector('body').classList.toggle('toggle-sidebar');
+    }
+</script>

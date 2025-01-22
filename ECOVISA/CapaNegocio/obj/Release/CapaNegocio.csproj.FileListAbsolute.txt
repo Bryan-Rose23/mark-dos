@@ -1,0 +1,11 @@
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\bin\Release\CapaNegocio.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\bin\Release\CapaNegocio.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\bin\Release\CapaDatos.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\bin\Release\CapaEntidades.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\bin\Release\CapaDatos.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\bin\Release\CapaEntidades.pdb
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Release\CapaNegocio.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Release\CapaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Release\CapaNegocio.csproj.CopyComplete
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Release\CapaNegocio.dll
+C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Release\CapaNegocio.pdb
