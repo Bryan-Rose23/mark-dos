@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "Trabajadores ECOVISA";
+
+    <link href="~/Content/css/estiloTrabajadores.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+}
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
+        <h3>Administración y Registro de Trabajadores</h3>
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form action="none" method="post" class="form-inline">
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="lbls" for="txtPrimerNombre">Primer Nombre:</label>
+                        <input class="form-control" type="text" name="txtPrimerNombre" id="txtPrimerNombre" />
+                    </div>
+                    <div class="form-group">
+                        <label class="lbls" for="txtSegundoNombre">Segundo Nombre:</label>
+                        <input class="form-control" type="text" name="txtSegundoNombre" id="txtSegundoNombre" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="lbls" for="txtPrimerApellido">Primer Apellido:</label>
+                        <input class="form-control" type="text" name="txtPrimerApellido" id="txtPrimerApellido" />
+                    </div>
+                    <div class="form-group">
+                        <label class="lbls" for="txtSegundoApellido">Segundo Apellido:</label>
+                        <input class="form-control" type="text" name="txtSegundoApellido" id="txtSegundoApellido" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="lbls" for="txtCedula">C&eacute;dula:</label>
+                        <input class="form-control" type="text" name="txtCedula" id="txtCedula" />
+                    </div>
+                    <div class="form-group">
+                        <label class="lbls" for="txtTelefono">Telef&oacute;no:</label>
+                        <input class="form-control" type="text" name="txtTelefono" id="txtTelefono" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="lbls" for="slcDepartamento">Departamento:</label>
+                        @*<input class="form-control" type="text" name="txtDpto" id="txtDpto" />*@
+                        <select class="form-select form-control" id="slcDepartamento" name="slcDepartamento"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="lbls" for="txtCorreo">Correo electr&oacute;nico:</label>
+                        <input type="email" id="txtCorreo" name="txtCorreo" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="lbls" for="txtDomicilio">Domicilio:</label>
+                        <input type="text" id="txtDomicilio" name="txtDomicilio" class="form-control form-input-custom"> @*style="width:380px; max-width:380px"*@
+                    </div>
+                    <div class="form-group">
+                        <label class="lbls" for="slcCargo">Cargo:</label>
+                        @*<input class="form-control" type="text" name="txtCargo" id="txtCargo" />*@
+                        <select class="form-select form-control" id="slcCargo" name="slcCargo"></select>
+                        <button type="button" class="btn btn-success " id="btnGuardarTrabajador" name="btnGuardarTrabajador" onclick="fcnGuardarTrabajador();" style="width:120px">Guardar</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <hr />
+        <table id="tblEmpleado" class="table table-responsive mb-3">
+            <thead>
+                <tr>
+                    <td>Trabajador</td>
+                    <td>Cedula</td>
+                    <td>Telef&oacute;no</td>
+                    <td>Correo electr&oacute;nico</td>
+                    <td>Departamento</td>
+                    <td>Cargo</td>
+                    <td></td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                HOLA
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var dtEmpleado;
+    $(document).ready(function () {
+        if ($.fn.DataTable.isDataTable('#tblEmpleado')) {
+            $('#tblEmpleado').DataTable().destroy();
+        }
+        dtEmpleado = $('#tblEmpleado').DataTable({
+            ajax: {
+                url: '/Administracion/ListaTrabajadores',
+                type: 'GET',
+                datatype: 'json',
+            },
+            columns: [
+                { "data": "TRABAJADOR" },
+                { "data": "CEDULA" },
+                { "data": "TELEFONO" },
+                { "data": "CORREO_ELECTRONICO" },
+                { "data": "DEPARTAMENTO" },
+                { "data": "CARGO" },
+                {
+                    "data": "ID", "render": function (data) {
+                        return "<button class='btn btn-primary btn-sm' type='button' onclick='abrirEdiitarTrabajador(" + data + ")'><i class='bx bxs-edit'></i></button>" +
+                            "<button class='btn btn-danger btn-sm ms-2' type='button' onclick='abrirEliminarTrabajador(" + data + ")'><i class='bx bxs-trash'></i></button>"
+                    },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "80px"
+                }
+            ]
+        });
+
+        //cargarTabla();
+        $('#txtCedula').inputmask("999-999999-9999A", {
+            placeholder: "_", // Optional: display underscores for empty spaces
+            definitions: {
+                'A': {
+                    validator: "[A-Z]", // Allows only alphabet letters for the last part
+                    cardinality: 1
+                }
+            }
+        });
+        $('#txtTelefono').inputmask("9999-9999A", {
+            placeholder: "_", // Optional: display underscores for empty spaces
+            definitions: {
+                'A': {
+                    validator: "[A-Z]", // Allows only alphabet letters for the last part
+                    cardinality: 1
+                }
+            }
+        });
+    });
+
+    function abrirEdiitarTrabajador($id) {
+        debugger;
+        $('#staticBackdrop').modal('show');
+        console.log("Hola");
+
+    }
+    function abrirEliminarTrabajador($id) {
+        alert("Eliminando trabajador" + $id);
+    }
+
+    $.ajax({
+        url: '/Departamentos/ListarDepartamentos',
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            for (let i = 0; i < data.data.length; i++) {
+                $('#slcDepartamento').append($('<option>',
+                    {
+                        value: data.data[i].ID,
+                        text: data.data[i].DESCRIPCION
+                    }
+                ));
+            }
+        },
+        error: function (error) {
+        }
+    });
+
+    $.ajax({
+        url: '/Cargos/ListarCargos',
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            for (let i = 0; i < data.data.length; i++) {
+                $('#slcCargo').append($('<option>',
+                    {
+                        value: data.data[i].ID,
+                        text: data.data[i].DESCRIPCION
+                    }
+                ));
+            }
+        },
+        error: function (error) {
+        }
+    });
+</script>

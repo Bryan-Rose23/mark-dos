@@ -9,3 +9,9 @@ C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.cspr
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.csproj.CoreCompileInputs.cache
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.dll
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\Utilidades\obj\Debug\Utilidades.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\Utilidades\bin\Debug\Utilidades.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\Utilidades\bin\Debug\Utilidades.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\Utilidades\obj\Debug\Utilidades.csproj.AssemblyReference.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\Utilidades\obj\Debug\Utilidades.csproj.CoreCompileInputs.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\Utilidades\obj\Debug\Utilidades.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\Utilidades\obj\Debug\Utilidades.pdb

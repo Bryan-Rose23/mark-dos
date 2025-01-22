@@ -8,3 +8,9 @@ C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\bin\Debug\CapaEntidade
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.csproj.CoreCompileInputs.cache
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.dll
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\bin\Debug\CapaEntidades.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\bin\Debug\CapaEntidades.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.csproj.AssemblyReference.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.csproj.CoreCompileInputs.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.pdb

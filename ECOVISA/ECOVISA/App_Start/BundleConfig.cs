@@ -29,10 +29,12 @@ namespace ECOVISA
 
             //Plugin
             bundles.Add(new StyleBundle("~/Content/Plugin/css").Include(
-                     "~/Content/datatable/css/jquery.dataTables.min.css")); 
+                     "~/Content/datatable/css/jquery.dataTables.min.css",
+                     "~/Content/datatable/css/buttons.dataTables.min.css")); 
 
              bundles.Add(new StyleBundle("~/Content/Plugin/js").Include(
                       "~/Content/datatable/js/jquery.dataTables.min.js",
+                      "~/Content/datatable/js/dataTables.buttons.min.js",
                       "~/Scripts/inputmask/jquery.inputmask.js"));
 
 

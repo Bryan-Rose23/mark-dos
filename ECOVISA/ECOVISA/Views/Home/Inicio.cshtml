@@ -4,7 +4,7 @@
 
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
-        <span class="d-none d-lg-block">@Html.ActionLink("ECOVISA", "Index", "Home", new { area = "" }, new { @class = "span-action-def" })</span>
+        <span class="d-none d-lg-block">@Html.ActionLink("ECOVISA", "Inicio", "Home", new { area = "" }, new { @class = "span-action-def" })</span>
         <i class="bx bx-menu toggle-sidebar-btn" onclick="clickToggle();"></i>
     </div>
     <nav class="header-nav ms-auto">
@@ -12,7 +12,7 @@
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <i class="bx bxs-user"></i>
-                    <span class="d-none d-md-block dropdown-toggle ps-2">@TempData["NombreUsuarioSession"] </span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">@Session["TARGET_USER"]</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li>
@@ -57,7 +57,7 @@
                             </a>
                         </li>
                     }
-                    else 
+                    else
                     {
                         <li class="nav-item">
                             <a class="nav-link collapsed" data-bs-target="#@($"menu-{item.Id}")" data-bs-toggle="collapse" href="#">
@@ -80,7 +80,8 @@
                                     }
                                 }
                             </ul>
-                        </li>    
+                        </li>
+
                     }
 
                 }
@@ -89,7 +90,7 @@
     </ul>
 </aside>
 
-<main id="main" class="main">
+@*<main id="main" class="main">
     <div class="d-flex justify-content-center " role="status">
         <div class="loading text-primary">
             <span class="visually-hidden">Loading...</span>
@@ -103,7 +104,19 @@
             <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
         </footer>
     </div>
+</main>*@
+
+
+<main id="main" class="main ">
+    <div class="body-content"></div>
+    <hr />
+    <footer>
+        <div style="align-content:center; justify-content:center; text-align:center; font-size:14px">
+            <p>Todos los Derechos Reservados &copy; ECOVISA | @DateTime.Now.Year</p>
+        </div>
+    </footer>
 </main>
+
 
 <input type="hidden" id="hdfUrl" value="@Session["TARGET_PAGE"]" />
 
@@ -115,7 +128,7 @@
             type: 'GET',
             success: function (result) {
                 // Inject the returned HTML (partial view content) into the .body-content area
-            //$("#hdfUrl").val(result);
+                //$("#hdfUrl").val(result);
                 $(".body-content").html(result);
             },
             error: function () {

@@ -16,3 +16,12 @@ C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaDatos\obj\Debug\CapaDatos.csproj
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaDatos\obj\Debug\CapaDatos.dll
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaDatos\obj\Debug\CapaDatos.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\bin\Debug\CapaDatos.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\bin\Debug\CapaDatos.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\bin\Debug\CapaEntidades.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\bin\Debug\CapaEntidades.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\obj\Debug\CapaDatos.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaDatos\obj\Debug\CapaDatos.pdb

@@ -20,3 +20,14 @@ C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.cs
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.dll
 C:\Users\LENOVO\Desktop\ECOVISA-DEV\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaNegocio.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaNegocio.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaDatos.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaEntidades.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaDatos.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaEntidades.pdb
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.AssemblyReference.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.CoreCompileInputs.cache
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.dll
+D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.pdb
