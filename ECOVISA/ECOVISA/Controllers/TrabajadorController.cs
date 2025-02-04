@@ -46,7 +46,7 @@ namespace ECOVISA.Controllers
                 cnTrabajador.ceTrabajador.Correo = strCorreo;
                 cnTrabajador.ceTrabajador.IdDepartamentoLaboral = Convert.ToInt32(intIdDepartamento);
                 cnTrabajador.ceTrabajador.IdCargo = Convert.ToInt32(intIdCargo);
-                cnTrabajador.cdTrabajador.GuardarTrabajador(cnTrabajador.ceTrabajador);
+               // cnTrabajador.cdTrabajador.GuardarTrabajador(cnTrabajador.ceTrabajador);
                 return Json(new { success = true, message = "Se guardó nuevo trabajador satisfactoriamente." });
             }
             catch (Exception e) 

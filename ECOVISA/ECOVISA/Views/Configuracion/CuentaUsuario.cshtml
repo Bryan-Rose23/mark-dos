@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "CuentaUsuario";
+    <link href="~/Content/css/estiloTrabajadores.css" rel="stylesheet" />
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
+        <h3>Cambio de Contraseña de Cuenta de Usuario</h3>
+    </div>
+    <div class="panel-body">
+        <div class="container-fluid">
+            <form class="form-inline" id="frmCuentaUsuario">
+                @{
+                    CapaNegocio.clsNegocioUsuario cnUsuario = new CapaNegocio.clsNegocioUsuario();
+                    cnUsuario.ceUsuario = (CapaEntidades.clsEntidadUsuario)Session["SesionUsuario"];
+                }
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <div class="col-md-5 col-sm-6 ">
+                            <label class="boldLabel" for="lblNombreUsuario">Nombre de Usuario:</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label class="singleLabel" id="lblNombreUsuario">@cnUsuario.ceUsuario.NombreUsuario</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <div class="col-md-5 col-sm-6">
+                            <label class="boldLabel" for="lblNombreUsuario">Usuario:</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label class="singleLabel" id="lblUsuario">@cnUsuario.ceUsuario.Usuario</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <div class="col-md-5 col-sm-6">
+                            <label class="boldLabel" for="lblNombreUsuario">Correo de Usuario:</label>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label class="singleLabel" id="lblUsuario">@cnUsuario.ceUsuario.Correo</label>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,11 @@ namespace ECOVISA.Controllers
                     ceUsuario.Id = Convert.ToInt32(dt.Rows[0][0]);
                     ceUsuario.NombreUsuario = Convert.ToString(dt.Rows[0][1]);
                     ceUsuario.Usuario = Convert.ToString(dt.Rows[0][2]);
+                    ceUsuario.Correo = Convert.ToString(dt.Rows[0][4]);
+                    ceUsuario.Estado = Convert.ToBoolean(dt.Rows[0][5]);
+                    ceUsuario.IdEmpleado = Convert.ToInt32(dt.Rows[0][6]);
+                    ceUsuario.IdGrupo = Convert.ToInt32(dt.Rows[0][7]);
+
                     Session["SesionUsuario"] = ceUsuario;
                     return Json(new { success=true, message="ok"});
                 }

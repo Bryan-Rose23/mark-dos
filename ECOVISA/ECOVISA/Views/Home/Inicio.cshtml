@@ -17,7 +17,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li>
                         <a class="dropdown-item d-flex align-items-center" @*href="users-profile.html"*@>
-                            <span>Cuenta de Usuario</span>
+                            <span id="btnCuentaUsuario">Cuenta de Usuario</span>
                         </a>
                     </li>
                     <li>
@@ -46,7 +46,7 @@
             {
                 if (item.Hijos == 0)
                 {
-
+                   
                     if (item.Ubicacion != "")
                     {
                         <li class="nav-item">
@@ -68,7 +68,7 @@
                             <ul id="menu-@item.Id" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                                 @foreach (var subItem in listaMenu)
                                 {
-                                    if (subItem.IdPadre == item.Id)
+                                    if (subItem.IdPadre == item.Id && subItem.Id != 8)
                                     {
                                         <li>
                                             <a class="nav-drop-item link-ref" href="@if (subItem.Ubicacion != "") { @Url.Action(subItem.Ubicacion.Split('/')[1], subItem.Ubicacion.Split('/')[0]) } ">
@@ -121,6 +121,8 @@
 <input type="hidden" id="hdfUrl" value="@Session["TARGET_PAGE"]" />
 
 <script>
+
+
     $(document).ready(function (event) {
         var target = $("#hdfUrl").val();
         $.ajax({
@@ -136,6 +138,30 @@
             }
         });
     });
+
+    $("#btnCuentaUsuario").click(function () {
+        fcnCuentaUsuario();
+    });
+
+
+    function fcnCuentaUsuario()
+    {
+        //e.preventDefault();
+        debugger;
+        //var url = $(this).attr("");  // Get the URL from the link
+        $.ajax({
+            url: '../Configuracion/CuentaUsuario',  // Send a GET request to the server
+            type: 'GET',
+            success: function (result) {
+                //$("#hdfUrl").val(result);
+                // Inject the returned HTML (partial view content) into the .body-content area
+                $(".body-content").html(result);
+            },
+            error: function () {
+                alert("Error loading content.");
+            }
+        });
+    }
 
     $(document).on('click', '.nav-link', function (e) {
         $('.nav-link').removeClass('link-active');

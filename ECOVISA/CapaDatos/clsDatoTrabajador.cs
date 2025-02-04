@@ -13,7 +13,7 @@ namespace CapaDatos
     {
         clsEntidadConexion cn = new clsEntidadConexion();
 
-        public void GuardarTrabajador(clsEntidadTrabajador ceTrabajador)
+        public void GuardarTrabajador(clsEntidadTrabajador ceTrabajador, int intIdSucursal)
         {
             using (SqlConnection con = new SqlConnection(cn.CadenaConexion())) 
             {
@@ -29,6 +29,8 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@strCorreo", ceTrabajador.Correo);
                 cmd.Parameters.AddWithValue("@intIdDepartamento", ceTrabajador.IdDepartamentoLaboral);
                 cmd.Parameters.AddWithValue("@intIdCargo", ceTrabajador.IdCargo);
+                cmd.Parameters.AddWithValue("@intIdSucursal", intIdSucursal);
+
                 con.Open();
                 cmd.ExecuteNonQuery();
             }

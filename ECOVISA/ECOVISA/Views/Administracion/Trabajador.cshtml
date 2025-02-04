@@ -6,70 +6,77 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
+
 }
 
 
 <div class="panel panel-primary">
     <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
-        <h3>Administración y Registro de Trabajadores</h3>
+        <h3>@ViewBag.Message</h3>
     </div>
     <div class="panel-body">
         <div class="container-fluid">
-            <form action="none" method="post" class="form-inline">
+            <form action="none" method="post" class="form-inline" id="frmRegistro">
                 <div class="row mb-3">
                     <div class="form-group">
                         <label class="lbls" for="txtPrimerNombre">Primer Nombre:</label>
-                        <input class="form-control" type="text" name="txtPrimerNombre" id="txtPrimerNombre" />
+                        <input class="form-control" type="text" name="txtPrimerNombre" required id="txtPrimerNombre" maxlength="50" />
                     </div>
                     <div class="form-group">
                         <label class="lbls" for="txtSegundoNombre">Segundo Nombre:</label>
-                        <input class="form-control" type="text" name="txtSegundoNombre" id="txtSegundoNombre" />
+                        <input class="form-control" type="text" name="txtSegundoNombre" id="txtSegundoNombre" maxlength="50" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="form-group">
                         <label class="lbls" for="txtPrimerApellido">Primer Apellido:</label>
-                        <input class="form-control" type="text" name="txtPrimerApellido" id="txtPrimerApellido" />
+                        <input class="form-control" type="text" name="txtPrimerApellido" required id="txtPrimerApellido" maxlength="50" />
                     </div>
                     <div class="form-group">
                         <label class="lbls" for="txtSegundoApellido">Segundo Apellido:</label>
-                        <input class="form-control" type="text" name="txtSegundoApellido" id="txtSegundoApellido" />
+                        <input class="form-control" type="text" name="txtSegundoApellido" id="txtSegundoApellido" maxlength="50" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="form-group">
                         <label class="lbls" for="txtCedula">C&eacute;dula:</label>
-                        <input class="form-control" type="text" name="txtCedula" id="txtCedula" />
+                        <input class="form-control" type="text" name="txtCedula" required id="txtCedula" placeholder="001-010190-8188A" />
                     </div>
                     <div class="form-group">
                         <label class="lbls" for="txtTelefono">Telef&oacute;no:</label>
-                        <input class="form-control" type="text" name="txtTelefono" id="txtTelefono" />
+                        <input class="form-control" type="text" name="txtTelefono" id="txtTelefono" placeholder="8888-8888" />
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="form-group">
                         <label class="lbls" for="slcDepartamento">Departamento:</label>
                         @*<input class="form-control" type="text" name="txtDpto" id="txtDpto" />*@
-                        <select class="form-select form-control" id="slcDepartamento" name="slcDepartamento"></select>
+                        <select class="form-select form-control" id="slcDepartamento" style="font-size:14px" name="slcDepartamento"></select>
                     </div>
                     <div class="form-group">
                         <label class="lbls" for="txtCorreo">Correo electr&oacute;nico:</label>
-                        <input type="email" id="txtCorreo" name="txtCorreo" class="form-control">
+                        <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" maxlength="100">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="form-group">
                         <label class="lbls" for="txtDomicilio">Domicilio:</label>
-                        <input type="text" id="txtDomicilio" name="txtDomicilio" class="form-control form-input-custom"> @*style="width:380px; max-width:380px"*@
+                        <input type="text" id="txtDomicilio" name="txtDomicilio" class="form-control form-input-custom" maxlength="300"> @*style="width:380px; max-width:380px"*@
                     </div>
                     <div class="form-group">
                         <label class="lbls" for="slcCargo">Cargo:</label>
                         @*<input class="form-control" type="text" name="txtCargo" id="txtCargo" />*@
-                        <select class="form-select form-control" id="slcCargo" name="slcCargo"></select>
+                        <select class="form-select form-control select-ctrl" id="slcCargo" style="font-size:14px" name="slcCargo"></select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group">
+                        <label class="lbls" for="slcSucursal">Sucursal:</label>
+                        @*<input class="form-control" type="text" name="txtDpto" id="txtDpto" />*@
+                        <select class="form-select form-control" id="slcSucursal" style="font-size:14px" name="slcSucursal"></select>
                         <button type="button" class="btn btn-success " id="btnGuardarTrabajador" name="btnGuardarTrabajador" onclick="fcnGuardarTrabajador();" style="width:120px">Guardar</button>
                     </div>
                 </div>
-
             </form>
         </div>
         <hr />
@@ -113,7 +120,14 @@
 
 <script>
     var dtEmpleado;
+
     $(document).ready(function () {
+        
+        $("#txtTelefono").inputmask("9999-9999", { placeholder: "8888-8888" });
+
+        $("#txtCedula").inputmask("999-999999-9999A", { placeholder: "001-010190-8188A" });
+
+
         if ($.fn.DataTable.isDataTable('#tblEmpleado')) {
             $('#tblEmpleado').DataTable().destroy();
         }
@@ -139,11 +153,27 @@
                     "searchable": false,
                     "width": "80px"
                 }
-            ]
+            ],
+            language: {
+                "decimal": ".",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
         });
 
         //cargarTabla();
-        $('#txtCedula').inputmask("999-999999-9999A", {
+    /*    $('#txtCedula').inputmask("999-999999-9999A", {
             placeholder: "_", // Optional: display underscores for empty spaces
             definitions: {
                 'A': {
@@ -160,8 +190,76 @@
                     cardinality: 1
                 }
             }
-        });
+        });*/
+
+       
     });
+
+
+
+    function fcnGuardarTrabajador() {
+
+        //Implement require validator
+        debugger;
+        let primerNombre = $('#txtPrimerNombre').val();
+        let segundoNombre = $('#txtSegundoNombre').val();
+        let primerApellido = $('#txtPrimerApellido').val();
+        let segundoApellido = $('#txtSegundoApellido').val();
+        let cedula = $('#txtCedula').val();
+        cedula = cedula.replace(/-/, "");
+        let telefono = $('#txtTelefono').val();
+        telefono = telefono.replace(/\D/g, '');//Number(telefono.replace(/\D/g, ''));
+
+        let correo = $('#txtCorreo').val();
+        let domicilio = $('#txtDomicilio').val();
+        let departamento = $('#slcDepartamento').find(":selected").val();//Number($('#slcDepartamento').find(":selected").val());
+        let cargo = $('#slcCargo').find(":selected").val();//Number($('#slcCargo').find(":selected").val());
+
+        if (primerNombre === "") {
+            riseSwal("Registro de Trabajador", "El campo Primer Nombre es requerido.", "error");
+            return false;
+        }
+        else if (primerApellido === "") {
+            riseSwal("Registro de Trabajador", "El campo Primer Apellido es requerido.", "error");
+            return false;
+        }
+        else if (cedula === "")
+        {
+            riseSwal("Registro de Trabajador", "El campo Cédula es requerido.", "error");
+            return false;
+        }
+
+        if (cedula.length < 14)
+        {
+            riseSwal("Registro de Trabajador", "Ingrese una Cédula valida.", "warning");
+            return false;
+        }
+
+        $.ajax({
+            url: '/Administracion/GuardarTrabajador',
+            type: 'POST',
+            data: {
+                strPrimerNombre: primerNombre, strSegundoNombre: segundoNombre, strPrimerApellido: primerApellido, strSegundoApellido: segundoApellido,
+                strCedula: cedula, strDomicilio: domicilio, intTelefono: telefono, strCorreo: correo, intIdDepartamento: departamento, intIdCargo: cargo
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    debugger;
+                    riseSwal("Registro de Trabajador", response.message, "success");
+                    dtEmpleado.ajax.reload();
+                    //cargarTabla();
+                }
+                else {
+                    riseSwal("Error Registro de Trabajador", response.message, "error");
+                }
+            },
+            error: function (error) {
+                console.log("AJAX Error", error.responseText);
+                riseSwal("Error Registro de Trabajador", "Se produjó un error inesperado. Intentelo más tarde.", "error");
+            }
+        });
+    }
 
     function abrirEdiitarTrabajador($id) {
         debugger;
@@ -174,7 +272,7 @@
     }
 
     $.ajax({
-        url: '/Departamentos/ListarDepartamentos',
+        url: '/Administracion/ListarDepartamentos',
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
@@ -192,7 +290,7 @@
     });
 
     $.ajax({
-        url: '/Cargos/ListarCargos',
+        url: '/Administracion/ListarCargos',
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
@@ -208,4 +306,15 @@
         error: function (error) {
         }
     });
+
+    function riseSwal(strTitle, strText, strIcon) {
+        Swal.fire({
+            heightAuto: false,
+            title: strTitle, // E.g., 'Success' or 'Error'
+            text: strText, // Your message from TempData
+            icon: strIcon, // E.g., 'success', 'error', 'info', 'warning'
+            confirmButtonText: 'Continuar',
+            closeOnClickOutside: false,// To prevent closing the alert by clicking outside
+        });
+    }
 </script>

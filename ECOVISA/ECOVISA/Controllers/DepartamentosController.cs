@@ -16,10 +16,6 @@ namespace ECOVISA.Controllers
             return View();
         }
 
-        public JsonResult ListarDepartamentos()
-        {
-            clsNegocioDepartamento cnDepartamento = new clsNegocioDepartamento();
-            return Json(new { data = utilidades.DataTableToSerealize(cnDepartamento.cdDepartamento.ListarDepartamentos()) }, JsonRequestBehavior.AllowGet);
-        }
+       
     }
 }

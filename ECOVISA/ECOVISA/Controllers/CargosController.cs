@@ -17,10 +17,6 @@ namespace ECOVISA.Controllers
         {
             return View();
         }
-        public JsonResult ListarCargos()
-        {
-            clsNegocioCargo cnCargo = new clsNegocioCargo();
-            return Json(new { data = utilidades.DataTableToSerealize(cnCargo.cdDato.ListarCargos()) }, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

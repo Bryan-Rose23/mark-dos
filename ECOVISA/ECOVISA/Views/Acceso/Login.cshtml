@@ -56,7 +56,7 @@
                             <input id="txtPass" type="password" name="Contrasena" class="form-control input_pass" value="" placeholder="Contraseña">
                         </div>
                         <div class="d-flex justify-content-center mt-4 login_container">
-                            <button id="btnIniciarSesion" type="button" name="button" class="btn btn-success btn-block login_btn" >Iniciar Sesión</button>
+                            <button id="btnIniciarSesion" type="button" name="button" class="btn btn-success btn-block login_btn" onclick="fcnIniciarSesion();">Iniciar Sesión</button>
                         </div>
                     </form>
                 </div>
@@ -78,12 +78,12 @@
     @*<script src="~/Content/js/login.js"></script>*@
 
     <script>
-        $("#btnIniciarSesion").on({
+        /*$("#btnIniciarSesion").on({
             click: function ()
             {
                 fcnIniciarSesion();
             }
-        });
+        });*/
         function fcnIniciarSesion()
         {
             let usuario = $('#txtUser').val();

@@ -18,6 +18,13 @@ namespace ECOVISA.Controllers
             {
                 Session["TARGET_PAGE"] = "/Home/Index";
             }
+            if (Session["SesionUsuario"] == null) 
+            {
+                Session["SesionUsuario"] = null;
+                Session["TARGET_PAGE"] = null;
+                Session["TARGET_USER"] = null;
+                return RedirectToAction("Login", "Acceso");
+            }
             clsNegocioUsuario cnUsuario = new clsNegocioUsuario();
             cnUsuario.ceUsuario = (CapaEntidades.clsEntidadUsuario)Session["SesionUsuario"];
             Session["TARGET_USER"] = cnUsuario.ceUsuario.NombreUsuario;
