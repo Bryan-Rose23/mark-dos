@@ -44,6 +44,7 @@
     <Compile Include="clsNegocioCargo.cs" />
     <Compile Include="clsNegocioDepartamento.cs" />
     <Compile Include="clsNegocioMenu.cs" />
+    <Compile Include="clsNegocioSucursal.cs" />
     <Compile Include="clsNegocioTrabajador.cs" />
     <Compile Include="clsNegocioUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

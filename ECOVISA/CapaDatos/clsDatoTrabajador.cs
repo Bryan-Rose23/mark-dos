@@ -13,6 +13,47 @@ namespace CapaDatos
     {
         clsEntidadConexion cn = new clsEntidadConexion();
 
+        public DataTable ConsultarTrabajador(int intIdTrabajador) 
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTAR_EMPLEADO", con))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@intIdEmpleado", intIdTrabajador);
+                    da.Fill(dt);
+                }
+            }
+
+            /*using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                /*using (SqlCommand cmd = new SqlCommand("PCDCONSULTAR_EMPLEADO", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@intIdTrabajador", intIdTrabajador);
+
+                    con.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        dt.Load(dr);
+                    }
+                }*
+            *using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTAR_EMPLEADO", con))
+                {
+                   
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@intIdTrabajador", intIdTrabajador);
+                   
+
+                    da.Fill(dt);
+
+                }*
+            }*/
+            return dt;
+        }
+        
         public void GuardarTrabajador(clsEntidadTrabajador ceTrabajador, int intIdSucursal)
         {
             using (SqlConnection con = new SqlConnection(cn.CadenaConexion())) 
@@ -31,6 +72,29 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@intIdCargo", ceTrabajador.IdCargo);
                 cmd.Parameters.AddWithValue("@intIdSucursal", intIdSucursal);
 
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public void ActualizarTrabajador(clsEntidadTrabajador ceTrabajador, int intIdSucursal)
+        {
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                SqlCommand cmd = new SqlCommand("PCDACTUALIZAR_EMPLEADO", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@intIdEmpleado", ceTrabajador.Id);
+                cmd.Parameters.AddWithValue("@strPrimerNombre", ceTrabajador.PrimerNombre);
+                cmd.Parameters.AddWithValue("@strSegundoNombre", ceTrabajador.SegundoNombre);
+                cmd.Parameters.AddWithValue("@strPrimerApellido", ceTrabajador.PrimerApellido);
+                cmd.Parameters.AddWithValue("@strSegundoApellido", ceTrabajador.SegundoApellido);
+                cmd.Parameters.AddWithValue("@strCedula", ceTrabajador.Cedula);
+                cmd.Parameters.AddWithValue("@strDomicilio", ceTrabajador.Domicilio);
+                cmd.Parameters.AddWithValue("@intTelefono", ceTrabajador.Telefono);
+                cmd.Parameters.AddWithValue("@strCorreo", ceTrabajador.Correo);
+                cmd.Parameters.AddWithValue("@intIdDepartamento", ceTrabajador.IdDepartamentoLaboral);
+                cmd.Parameters.AddWithValue("@intIdCargo", ceTrabajador.IdCargo);
+                cmd.Parameters.AddWithValue("@boolEstado", ceTrabajador.Estado);
+                cmd.Parameters.AddWithValue("@intIdSucursal", intIdSucursal);
                 con.Open();
                 cmd.ExecuteNonQuery();
             }

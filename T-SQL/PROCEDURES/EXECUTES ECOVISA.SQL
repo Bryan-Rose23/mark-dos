@@ -39,4 +39,6 @@ EXEC PCDINSERTAR_MENU 'Inventario', null, 0;
 EXEC PCDINSERTAR_MENU 'Catálogos', null, 0;
 EXEC PCDINSERTAR_MENU 'Configuración', null, 0;
 
+EXEC PCDINSERTAR_SUCURSAL 'ECOVISA CENTRAL', 'Bo. René Polanco del Centro de Salud Carlos Rugama 30vrs al Oeste.'
+
 EXEC PCDLISTARMENUS;

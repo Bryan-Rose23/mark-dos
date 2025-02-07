@@ -45,6 +45,7 @@
     <Compile Include="clsDatoCargo.cs" />
     <Compile Include="clsDatoDepartamento.cs" />
     <Compile Include="clsDatoMenu.cs" />
+    <Compile Include="clsDatoSucursal.cs" />
     <Compile Include="clsDatoTrabajador.cs" />
     <Compile Include="clsDatoUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

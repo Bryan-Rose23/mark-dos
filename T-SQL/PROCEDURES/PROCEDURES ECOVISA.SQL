@@ -11,6 +11,10 @@
 								-CREATE PCDVALIDAR_USUARIO
 								-CREATE PCDINSERTAR_MENU
 								-CREATE PCDLISTARMENUS
+	3.- 07/02/2025	BROSALES    -SE CREA PCDACTUALIZAR_EMPLEADO
+								-SE MODIFICA EL PROCEDIMIENTO PCDINSERTAR_EMPLEADO AGREGANDO INSERT DIRECTO A TABLA HISTORIAL TBLSUCURSAL_EMPLEADO E INGRESO DEL CAMPO TELEFONO
+								-SE CREA EL PROCEDIMIENTO PCDINSERTAR_SUCURSAL
+								-SE CREA EL PCDCONSULTAR_EMPLEADO
 */
 USE ECOVISA;
 
@@ -72,7 +76,28 @@ END;
 GO
 
 
-CREATE PROCEDURE [dbo].[PCDINSERTAR_EMPLEADO] (@strPrimerNombre VARCHAR(50), @strSegundoNombre VARCHAR(50), @strPrimerApellido VARCHAR(50), @strSegundoApellido VARCHAR(50), @strCedula VARCHAR(15), @strDomicilio VARCHAR(300), @intTelefono INT, @strCorreo VARCHAR(100), @intIdDepartamento INT, @intIdCargo INT)
+CREATE PROCEDURE PCDINSERTAR_SUCURSAL (@strNombre VARCHAR(100), @strDireccion VARCHAR(300))
+AS 
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION
+			INSERT INTO TBLSUCURSAL (ID, NOMBRE, DIRECCION, ESTADO)
+			VALUES ((SELECT CASE WHEN MAX(ID) IS NULL THEN 1 ELSE MAX(ID) + 1 END FROM TBLSUCURSAL), @strNombre, @strDireccion, 1)
+		COMMIT TRANSACTION
+	END TRY
+	BEGIN CATCH
+		IF @@TRANCOUNT > 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END 
+		DECLARE @Message varchar(MAX) = ERROR_MESSAGE(),
+			@Severity int = ERROR_SEVERITY(),
+			@State smallint = ERROR_STATE();
+		RAISERROR (@Message, @Severity, @State);
+	END CATCH
+END
+
+ALTER PROCEDURE [dbo].[PCDINSERTAR_EMPLEADO] (@strPrimerNombre VARCHAR(50), @strSegundoNombre VARCHAR(50), @strPrimerApellido VARCHAR(50), @strSegundoApellido VARCHAR(50), @strCedula VARCHAR(15), @strDomicilio VARCHAR(300), @intTelefono INT, @strCorreo VARCHAR(100), @intIdDepartamento INT, @intIdCargo INT, @intIdSucursal INT)
 AS
 BEGIN 
 	DECLARE @intId INT;
@@ -84,7 +109,9 @@ BEGIN
 				RAISERROR('Se encontró otro trabajador asociado a la cédula ingresada.', 11, 1);
 			END
 			INSERT INTO TBLEMPLEADO(ID, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, CEDULA, DOMICILIO, TELEFONO, CORREO_ELECTRONICO, ESTADO, IDDEPARTAMENTO_LABORAL,IDCARGO)
-			VALUES ((SELECT CASE WHEN MAX(ID) IS NULL THEN 1 ELSE MAX(ID) + 1 END FROM TBLEMPLEADO), @strPrimerNombre, @strSegundoNombre, @strPrimerApellido, @strSegundoApellido, @strCedula, @strDomicilio, @intTelefono, @strCorreo, 1, @intIdDepartamento, @intIdCargo);
+			VALUES ((SELECT CASE WHEN MAX(ID) IS NULL THEN 1 ELSE MAX(ID) + 1 END FROM TBLEMPLEADO), @strPrimerNombre, @strSegundoNombre, @strPrimerApellido, @strSegundoApellido, @strCedula, @strDomicilio, CASE WHEN @intTelefono = 0 THEN NULL ELSE @intTelefono END, @strCorreo, 1, @intIdDepartamento, @intIdCargo);
+			
+			INSERT INTO TBLSUCURSAL_EMPLEADO (IDSUCURSAL, IDEMPLEADO, FECHA_INGRESO) VALUES(@intIdSucursal, (SELECT MAX(ID) FROM TBLEMPLEADO), GETDATE());		
 			COMMIT TRANSACTION;
 	 END TRY
 	 BEGIN CATCH
@@ -112,6 +139,85 @@ BEGIN
 END;
 GO
 
+
+
+CREATE PROCEDURE [dbo].[PCDACTUALIZAR_EMPLEADO] (@intIdEmpleado INT, @strPrimerNombre VARCHAR(50), @strSegundoNombre VARCHAR(50), @strPrimerApellido VARCHAR(50), @strSegundoApellido VARCHAR(50), @strCedula VARCHAR(15), @strDomicilio VARCHAR(300), @intTelefono INT, @strCorreo VARCHAR(100), @intIdDepartamento INT, @intIdCargo INT, @boolEstado BIT, @intIdSucursal INT)
+AS
+BEGIN 
+	DECLARE @intId INT;
+	BEGIN TRY
+		BEGIN TRANSACTION 
+			SELECT @intId  = COUNT(ID) FROM TBLEMPLEADO WHERE TRIM(UPPER(CEDULA)) = TRIM(UPPER(@strCedula));
+			IF @intId > 0 
+			BEGIN
+				RAISERROR('Se encontró otro trabajador asociado a la cédula ingresada.', 11, 1);
+			END
+
+
+			--SELECT @intId = COUNT(ID) FROM TBLEMPLEADO WHERE ID = @intIdEmpleado
+			IF @boolEstado = 1 
+			BEGIN
+
+				IF (SELECT COUNT(IDEMPLEADO) FROM TBLSUCURSAL_EMPLEADO WHERE IDEMPLEADO = @intIdEmpleado AND IDSUCURSAL = @intIdSucursal AND ESTADO = 1) > 0 
+				BEGIN
+					UPDATE TBLEMPLEADO 
+					SET PRIMER_NOMBRE =  @strPrimerNombre, SEGUNDO_NOMBRE =@strSegundoNombre, PRIMER_APELLIDO = @strPrimerApellido,
+					SEGUNDO_APELLIDO = @strSegundoApellido, CEDULA = @strCedula, DOMICILIO = @strDomicilio, TELEFONO = (CASE WHEN @intTelefono = 0 THEN NULL ELSE @intTelefono END),
+					CORREO_ELECTRONICO = @strCorreo, ESTADO = @boolEstado, IDDEPARTAMENTO_LABORAL = @intIdDepartamento, IDCARGO = @intIdCargo
+					WHERE ID = @intIdEmpleado;
+				END
+				ELSE 
+				BEGIN
+					UPDATE TBLEMPLEADO 
+					SET PRIMER_NOMBRE =  @strPrimerNombre, SEGUNDO_NOMBRE =@strSegundoNombre, PRIMER_APELLIDO = @strPrimerApellido,
+					SEGUNDO_APELLIDO = @strSegundoApellido, CEDULA = @strCedula, DOMICILIO = @strDomicilio, TELEFONO = (CASE WHEN @intTelefono = 0 THEN NULL ELSE @intTelefono END),
+					CORREO_ELECTRONICO = @strCorreo, ESTADO = @boolEstado, IDDEPARTAMENTO_LABORAL = @intIdDepartamento, IDCARGO = @intIdCargo
+					WHERE ID = @intIdEmpleado;
+
+					UPDATE TBLSUCURSAL_EMPLEADO
+					SET ESTADO = 0
+					WHERE IDEMPLEADO = @intIdEmpleado AND ESTADO = 1 AND 
+					FECHA_INGRESO = (SELECT MAX(FECHA_INGRESO) FROM TBLSUCURSAL_EMPLEADO WHERE IDEMPLEADO = @intIdEmpleado);
+
+					INSERT INTO TBLSUCURSAL_EMPLEADO (IDSUCURSAL, IDEMPLEADO, FECHA_INGRESO, ESTADO) VALUES(@intIdSucursal, @intIdEmpleado, GETDATE(), 1);	
+				END
+			END
+			ELSE 
+			BEGIN
+				UPDATE TBLEMPLEADO 
+				SET PRIMER_NOMBRE =  @strPrimerNombre, SEGUNDO_NOMBRE =@strSegundoNombre, PRIMER_APELLIDO = @strPrimerApellido,
+				SEGUNDO_APELLIDO = @strSegundoApellido, CEDULA = @strCedula, DOMICILIO = @strDomicilio, TELEFONO = (CASE WHEN @intTelefono = 0 THEN NULL ELSE @intTelefono END),
+				CORREO_ELECTRONICO = @strCorreo, ESTADO = @boolEstado, IDDEPARTAMENTO_LABORAL = @intIdDepartamento, IDCARGO = @intIdCargo
+				WHERE ID = @intIdEmpleado;
+
+				UPDATE TBLSUCURSAL_EMPLEADO
+				SET ESTADO = 0
+				WHERE IDEMPLEADO = @intIdEmpleado AND IDSUCURSAL = @intIdSucursal AND 
+				FECHA_INGRESO = (SELECT MAX(FECHA_INGRESO) FROM TBLSUCURSAL_EMPLEADO WHERE IDEMPLEADO = @intIdEmpleado);
+			END
+			COMMIT TRANSACTION;
+	 END TRY
+	 BEGIN CATCH
+		IF @@TRANCOUNT > 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END 
+		DECLARE @Message varchar(MAX) = ERROR_MESSAGE(),
+			@Severity int = ERROR_SEVERITY(),
+			@State smallint = ERROR_STATE();
+		RAISERROR (@Message, @Severity, @State);
+		--RAISERROR(ERROR_MESSAGE(), ERROR_SEVERITY(), ERROR_STATE());
+
+	 END CATCH
+END;
+
+
+CREATE PROCEDURE [dbo].[PCDCONSULTAR_EMPLEADO](@intIdEmpleado INT)
+AS
+BEGIN
+	SELECT ID, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, CEDULA, DOMICILIO, TELEFONO, CORREO_ELECTRONICO, ESTADO, 
+	IDDEPARTAMENTO_LABORAL, IDCARGO, (SELECT IDSUCURSAL FROM TBLSUCURSAL_EMPLEADO WHERE IDEMPLEADO =  @intIdEmpleado AND ESTADO = 1) SUCURSAL FROM (SELECT * FROM TBLEMPLEADO WHERE ID = @intIdEmpleado) EMPLEADO;
+END
 
 
 CREATE PROCEDURE [dbo].[PCDINSERTAR_SUCURSAL] (@strNombre VARCHAR(100), @strDireccion VARCHAR(300))

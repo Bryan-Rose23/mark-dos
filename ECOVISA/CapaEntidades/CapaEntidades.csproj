@@ -45,6 +45,7 @@
     <Compile Include="clsEntidadCargo.cs" />
     <Compile Include="clsEntidadDepartamento.cs" />
     <Compile Include="clsEntidadMenu.cs" />
+    <Compile Include="clsEntidadSucursal.cs" />
     <Compile Include="clsEntidadTrabajador.cs" />
     <Compile Include="clsEntidadUsuario.cs" />
     <Compile Include="clsEntidadConexion.cs" />

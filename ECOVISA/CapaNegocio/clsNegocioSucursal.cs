@@ -8,9 +8,9 @@ using CapaEntidades;
 
 namespace CapaNegocio
 {
-    public class clsNegocioCargo
+    public class clsNegocioSucursal
     {
-        public clsDatoCargo cdCargo = new clsDatoCargo();
-        public clsEntidadCargo ceCargo = new clsEntidadCargo();
+        public clsDatoSucursal cdSucursal = new clsDatoSucursal();
+        public clsEntidadSucursal ceSucursal = new clsEntidadSucursal();
     }
 }

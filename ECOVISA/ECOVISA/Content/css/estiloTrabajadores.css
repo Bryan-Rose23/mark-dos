@@ -1,4 +1,9 @@
-﻿.boldLabel {
+﻿
+.heading-sc {
+    background: rgba(31, 68, 128, 100);
+}
+
+.boldLabel {
     width: 200px;
     font-size: 14px;
     font-weight: 600;

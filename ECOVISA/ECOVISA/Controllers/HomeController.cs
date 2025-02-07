@@ -34,7 +34,24 @@ namespace ECOVISA.Controllers
         [HttpGet]
         public PartialViewResult Index()
         {
-            Session["TARGET_PAGE"] = "/Home/Index";
+            //Session["TARGET_PAGE"] = "/Home/Index";
+
+            if (Session["TARGET_PAGE"] == null)
+            {
+                Session["TARGET_PAGE"] = "/Home/Index";
+            }
+            if (Session["SesionUsuario"] == null)
+            {
+                Session["SesionUsuario"] = null;
+                Session["TARGET_PAGE"] = null;
+                Session["TARGET_USER"] = null;
+                return PartialView();
+                //return RedirectToAction("Login", "Acceso");
+            }
+            clsNegocioUsuario cnUsuario = new clsNegocioUsuario();
+            cnUsuario.ceUsuario = (CapaEntidades.clsEntidadUsuario)Session["SesionUsuario"];
+            Session["TARGET_USER"] = cnUsuario.ceUsuario.NombreUsuario;
+
             return PartialView();
         }
 
@@ -54,11 +71,19 @@ namespace ECOVISA.Controllers
             return PartialView();
         }
 
-        public ActionResult CerrarSesion()
+        [HttpPost]
+        public JsonResult CerrarSesion()
         {
-            Session["SesionUsuario"] = null;
-            Session["TARGET_PAGE"] = null;
-            return RedirectToAction("Login", "Acceso");
+            try
+            {
+                Session["SesionUsuario"] = null;
+                Session["TARGET_PAGE"] = null;
+                return Json(new { success = true, message = "ok" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
         }
     }
 }

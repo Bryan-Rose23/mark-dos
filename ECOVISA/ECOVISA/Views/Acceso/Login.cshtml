@@ -78,12 +78,6 @@
     @*<script src="~/Content/js/login.js"></script>*@
 
     <script>
-        /*$("#btnIniciarSesion").on({
-            click: function ()
-            {
-                fcnIniciarSesion();
-            }
-        });*/
         function fcnIniciarSesion()
         {
             let usuario = $('#txtUser').val();
@@ -94,7 +88,7 @@
                 data: { strUsuario: usuario, strContrasena: contrasena },
                 success: function (respuesta) {
                     if (respuesta.success) {
-                        window.location.href = "/Home/Inicio";
+                        window.location.href = "/Home/Index";
                     }
                     else
                     {
