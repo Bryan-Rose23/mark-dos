@@ -31,3 +31,14 @@ D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio
 D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
 D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.dll
 D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.pdb
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaNegocio.dll
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaNegocio.pdb
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaDatos.dll
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaEntidades.dll
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaDatos.pdb
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\bin\Debug\CapaEntidades.pdb
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.dll
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaNegocio\obj\Debug\CapaNegocio.pdb

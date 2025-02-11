@@ -14,3 +14,9 @@ D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntid
 D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.csproj.CoreCompileInputs.cache
 D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.dll
 D:\ECOVISA\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.pdb
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\bin\Debug\CapaEntidades.dll
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\bin\Debug\CapaEntidades.pdb
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.csproj.AssemblyReference.cache
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.dll
+C:\Users\LENOVO\Desktop\Bryan Rosales Docs\Ejecucion\master-ecovisa-git\mark-dos\ECOVISA\CapaEntidades\obj\Debug\CapaEntidades.pdb

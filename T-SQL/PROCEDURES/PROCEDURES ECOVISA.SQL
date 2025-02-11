@@ -140,8 +140,7 @@ END;
 GO
 
 
-
-CREATE PROCEDURE [dbo].[PCDACTUALIZAR_EMPLEADO] (@intIdEmpleado INT, @strPrimerNombre VARCHAR(50), @strSegundoNombre VARCHAR(50), @strPrimerApellido VARCHAR(50), @strSegundoApellido VARCHAR(50), @strCedula VARCHAR(15), @strDomicilio VARCHAR(300), @intTelefono INT, @strCorreo VARCHAR(100), @intIdDepartamento INT, @intIdCargo INT, @boolEstado BIT, @intIdSucursal INT)
+CREATE OR ALTER PROCEDURE [dbo].[PCDACTUALIZAR_EMPLEADO] (@intIdEmpleado INT, @strPrimerNombre VARCHAR(50), @strSegundoNombre VARCHAR(50), @strPrimerApellido VARCHAR(50), @strSegundoApellido VARCHAR(50), @strCedula VARCHAR(15), @strDomicilio VARCHAR(300), @intTelefono INT, @strCorreo VARCHAR(100), @intIdDepartamento INT, @intIdCargo INT, @boolEstado BIT, @intIdSucursal INT)
 AS
 BEGIN 
 	DECLARE @intId INT;
@@ -211,6 +210,35 @@ BEGIN
 	 END CATCH
 END;
 
+
+CREATE OR ALTER PROCEDURE PCDELIMINAR_EMPLEADO (@intIdEmpleado INT)
+AS 
+BEGIN 
+	BEGIN TRY
+		BEGIN TRANSACTION
+			DELETE FROM TBLEMPLEADO WHERE ID = @intIdEmpleado;
+		COMMIT;
+	END TRY
+	BEGIN CATCH
+		IF @@TRANCOUNT > 0
+		BEGIN
+			ROLLBACK TRANSACTION;
+		END 
+		DECLARE  @ErrorNumber INT = ERROR_NUMBER(),
+			@Message varchar(MAX),-- = ERROR_MESSAGE(),
+			@Severity int = ERROR_SEVERITY(),
+			@State smallint = ERROR_STATE();
+		IF @ErrorNumber = 547
+		BEGIN
+			SET @Message = 'El trabajador tiene registros asociados.';
+		END
+		ELSE
+		BEGIN 
+			SET @Message = ERROR_MESSAGE();
+		END
+			RAISERROR (@Message, @Severity, @State);
+	END CATCH
+END;
 
 CREATE PROCEDURE [dbo].[PCDCONSULTAR_EMPLEADO](@intIdEmpleado INT)
 AS

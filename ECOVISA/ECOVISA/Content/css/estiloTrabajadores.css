@@ -1,4 +1,9 @@
-﻿
+﻿.row-activo {
+    background-color: red !important;
+}
+.row-inactivo {
+    background-color: green !important;
+}
 .heading-sc {
     background: rgba(31, 68, 128, 100);
 }

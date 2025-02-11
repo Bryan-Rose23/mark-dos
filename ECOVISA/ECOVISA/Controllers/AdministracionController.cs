@@ -80,6 +80,23 @@ namespace ECOVISA.Controllers
             }
 
         }
+
+        [HttpPost]
+        public JsonResult EliminarTrabajador(string strIdTrabajador)
+        {
+            try
+            {
+                clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
+                cnTrabajador.ceTrabajador.Id = Convert.ToInt32(strIdTrabajador);
+                cnTrabajador.cdTrabajador.EliminarTrabajador(cnTrabajador.ceTrabajador);
+                return Json(new { success = true, message = "Se eliminó el trabajador satisfactoriamente." });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
+
+        }
         [HttpGet]
         public JsonResult ConsultarTrabajador(string intIdEmpleado)
         {
