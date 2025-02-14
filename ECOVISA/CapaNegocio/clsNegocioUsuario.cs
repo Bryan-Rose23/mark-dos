@@ -26,5 +26,46 @@ namespace CapaNegocio
             }
             return sb.ToString();
         }
+
+        public string ValidarCambioContrasena(clsEntidadUsuario ceUsuarioCambio, String strNuevaContrasena, String strConfirmacionContrasena) 
+        {
+            if (ceUsuarioCambio.Contrasena == strNuevaContrasena)
+            {
+                return "La nueva contraseña debe ser diferente a la contraseña actual.";
+            }
+            else 
+            {
+                if (strNuevaContrasena == strConfirmacionContrasena) 
+                {
+                    //consultar contraseña actual
+                    ceUsuarioCambio.Contrasena = ConvertirSHA256(ceUsuarioCambio.Contrasena);
+                    System.Data.DataTable dt = cdUsuario.ValidarContrasenaActual(ceUsuarioCambio);
+                    if (dt.Rows.Count > 0)
+                    {
+                        //validar criterios de validacion de contraseña
+                        return ValidarCriteriosContrasena(strNuevaContrasena);
+                    }
+                    else 
+                    {
+                        return "La contraseña actual ingresada no coincide con la contraseña de uso actual registrada.";
+                    }
+                }
+                return "No se encontró coincidencia entre los datos ingresados en el campo Nueva contraseña y el campo Confirmar contraseña.";
+            }
+
+        }
+
+        public string ValidarCriteriosContrasena(String contrasena)
+        {
+            if (contrasena.Length > 7 && contrasena.Length <= 12)
+            {
+                return "";
+            }
+            else 
+            {
+                return "La contraseña debe tener entre 7 y 12 caracteres.";
+            }
+            
+        }
     }
 }

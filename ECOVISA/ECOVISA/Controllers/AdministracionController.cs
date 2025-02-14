@@ -59,6 +59,7 @@ namespace ECOVISA.Controllers
             {
                 //int intIdSucursal = 1;
                 clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
+                cnTrabajador.ceTrabajador.Id = Convert.ToInt32(strIdTrabajador);
                 cnTrabajador.ceTrabajador.PrimerNombre = strPrimerNombre == "" ? null : strPrimerNombre;
                 cnTrabajador.ceTrabajador.SegundoNombre = strSegundoNombre;
                 cnTrabajador.ceTrabajador.PrimerApellido = strPrimerApellido;
@@ -69,10 +70,27 @@ namespace ECOVISA.Controllers
                 cnTrabajador.ceTrabajador.Correo = strCorreo;
                 cnTrabajador.ceTrabajador.IdDepartamentoLaboral = Convert.ToInt32(intIdDepartamento);
                 cnTrabajador.ceTrabajador.IdCargo = Convert.ToInt32(intIdCargo);
-                cnTrabajador.ceTrabajador.Estado = Convert.ToBoolean(boolEstado);
+                cnTrabajador.ceTrabajador.Estado = boolEstado == "0"? false:true;
 
-                cnTrabajador.cdTrabajador.GuardarTrabajador(cnTrabajador.ceTrabajador, Convert.ToInt32(intIdSucursal));
-                return Json(new { success = true, message = "Se guardó nuevo trabajador satisfactoriamente." });
+                cnTrabajador.cdTrabajador.ActualizarTrabajador(cnTrabajador.ceTrabajador, Convert.ToInt32(intIdSucursal));
+                return Json(new { success = true, message = "Se actualizó el trabajador satisfactoriamente." });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult EliminarTrabajador(string strIdTrabajador)
+        {
+            try
+            {
+                clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
+                cnTrabajador.ceTrabajador.Id = Convert.ToInt32(strIdTrabajador);
+                cnTrabajador.cdTrabajador.EliminarTrabajador(cnTrabajador.ceTrabajador);
+                return Json(new { success = true, message = "Se eliminó el trabajador satisfactoriamente." });
             }
             catch (Exception e)
             {
@@ -88,6 +106,21 @@ namespace ECOVISA.Controllers
                 clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
                 //return Json(new { data = utilidades.DataTableToSerealize(cnTrabajador.cdTrabajador.ConsultarTrabajador(cnTrabajador.ceTrabajador.Id)) }, JsonRequestBehavior.AllowGet);
                 return Json(new { success = true, data = utilidades.DataTableToSerealize(cnTrabajador.cdTrabajador.ConsultarTrabajador(Convert.ToInt32(intIdEmpleado))) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
+
+        }
+        [HttpGet]
+        public JsonResult ConsultarHistorialTrabajador(string intIdEmpleado)
+        {
+            try
+            {
+                clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
+                //return Json(new { data = utilidades.DataTableToSerealize(cnTrabajador.cdTrabajador.ConsultarTrabajador(cnTrabajador.ceTrabajador.Id)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, data = utilidades.DataTableToSerealize(cnTrabajador.cdTrabajador.ConsultarHistorialTrabajador(Convert.ToInt32(intIdEmpleado))) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

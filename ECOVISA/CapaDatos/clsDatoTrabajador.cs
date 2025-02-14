@@ -12,47 +12,6 @@ namespace CapaDatos
     public class clsDatoTrabajador
     {
         clsEntidadConexion cn = new clsEntidadConexion();
-
-        public DataTable ConsultarTrabajador(int intIdTrabajador) 
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
-            {
-                using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTAR_EMPLEADO", con))
-                {
-                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                    da.SelectCommand.Parameters.AddWithValue("@intIdEmpleado", intIdTrabajador);
-                    da.Fill(dt);
-                }
-            }
-
-            /*using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
-            {
-                /*using (SqlCommand cmd = new SqlCommand("PCDCONSULTAR_EMPLEADO", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@intIdTrabajador", intIdTrabajador);
-
-                    con.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        dt.Load(dr);
-                    }
-                }*
-            *using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTAR_EMPLEADO", con))
-                {
-                   
-                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                    da.SelectCommand.Parameters.AddWithValue("@intIdTrabajador", intIdTrabajador);
-                   
-
-                    da.Fill(dt);
-
-                }*
-            }*/
-            return dt;
-        }
         
         public void GuardarTrabajador(clsEntidadTrabajador ceTrabajador, int intIdSucursal)
         {
@@ -71,7 +30,6 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@intIdDepartamento", ceTrabajador.IdDepartamentoLaboral);
                 cmd.Parameters.AddWithValue("@intIdCargo", ceTrabajador.IdCargo);
                 cmd.Parameters.AddWithValue("@intIdSucursal", intIdSucursal);
-
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -99,7 +57,47 @@ namespace CapaDatos
                 cmd.ExecuteNonQuery();
             }
         }
+        public void EliminarTrabajador(clsEntidadTrabajador ceTrabajador)
+        {
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                SqlCommand cmd = new SqlCommand("PCDELIMINAR_EMPLEADO", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@intIdEmpleado", ceTrabajador.Id);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public DataTable ConsultarTrabajador(int intIdTrabajador)
+        {
+            DataTable dt = new DataTable();
 
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTAR_EMPLEADO", con))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@intIdEmpleado", intIdTrabajador);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
+        public DataTable ConsultarHistorialTrabajador(int intIdTrabajador)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTARHISTORIAL_EMPLEADO", con))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@intIdEmpleado", intIdTrabajador);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
         public DataTable ListarTrabajador() 
         {
             DataTable dt = new DataTable();

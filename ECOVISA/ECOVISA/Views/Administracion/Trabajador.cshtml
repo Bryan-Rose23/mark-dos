@@ -5,6 +5,9 @@
     <link href="~/Content/css/estiloTrabajadores.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -72,14 +75,14 @@
                 <div class="row mb-3">
                     <div class="form-group">
                         <label class="lbls" for="txtDomicilio">Domicilio:</label>
-                        <input type="text" id="txtDomicilio" name="txtDomicilio" class="form-control form-input-custom" maxlength="300"> 
+                        <input type="text" id="txtDomicilio" name="txtDomicilio" class="form-control form-input-custom" maxlength="300">
                         <button type="button" class="btn btn-primary" id="btnGuardarTrabajador" name="btnGuardarTrabajador" onclick="fcnGuardarTrabajador();" style="width:120px">Guardar</button>
                     </div>
                 </div>
             </form>
         </div>
         <hr />
-        <table id="tblEmpleado" class="table table-responsive mb-3">
+        <table id="tblEmpleado" class="table table-responsive mb-3" style="width:100%;">
             <thead>
                 <tr>
                     <td>Trabajador</td>
@@ -116,11 +119,11 @@
         </div>
     </div>*@
 
-<div class="modal"role="dialog" id="staticBackdrop" data-bs-backdrop="static" >
-    <div class="modal-dialog modal-dialog-centered modal-lg"> 
-        <div class="modal-content" >
+<div class="modal" role="dialog" id="staticBackdrop" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
             <div class="modal-header" style="background: rgba(31, 68, 128, 100); ">
-                <label class="lbls"  style="color:white; width:100%">Actualización de Empleados ECOVISA</label>
+                <label class="lbls" style="color:white; width:100%">Actualización de Empleados ECOVISA</label>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -224,10 +227,8 @@
                         </div>
 
                     </form>
-                    <input type="hidden" id="hdfIdEmpleado"/>
+                    <input type="hidden" id="hdfIdEmpleado" />
                 </div>
-                    
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -236,6 +237,38 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal" role="dialog" id="mHistorialTrabajadores" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: rgba(31, 68, 128, 100); ">
+                <label class="lbls" style="color:white; width:100%">Historial de Empleado en Sucursal</label>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <hr />
+                    <table id="tblHistorialEmpleado" class="table table-responsive mb-3" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <td>Trabajador</td>
+                                <td>Sucursal</td>
+                                <td>Fecha</td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <input type="hidden" id="hdfIdEmpleado" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnActualizarEmpleado">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     var dtEmpleado;
@@ -246,7 +279,7 @@
             placeholder: " ",
             clearMaskOnLostFocus: true,
             showMaskOnHover: false,
-            showMaskOnFocus:true
+            showMaskOnFocus: true
         });
         $("#txtCedula").inputmask({
             mask: "999-999999-9999A",
@@ -291,13 +324,21 @@
                 {
                     "data": "ID", "render": function (data) {
                         return "<button class='btn btn-warning btn-sm' type='button' onclick='abrirEditarTrabajador(" + data + ")'><i class='bx bxs-edit'></i></button>" +
-                            "<button class='btn btn-danger btn-sm ms-2' type='button' onclick='abrirEliminarTrabajador(" + data + ")'><i class='bx bxs-trash'></i></button>"
+                            "<button class='btn btn-danger btn-sm ms-2' type='button' onclick='abrirEliminarTrabajador(" + data + ")'><i class='bx bxs-trash'></i></button>" +
+                            "<button class='btn btn-secondary btn-sm ms-2' type='button' onclick='abrirHistorialTrabajador(" + data + ")'><i class='bx bxs-calendar'></i></button>"
                     },
                     "orderable": false,
                     "searchable": false,
-                    "width": "80px"
+                    "width": "100px"
                 }
             ],
+            fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                if (aData.ESTADO == true) {
+                    $('td', nRow).css('background-color', 'rgb(165 241 166)');
+                } else{
+                    $('td', nRow).css('background-color', 'rgb(255 131 131)');
+                }
+            },
             language: {
                 "decimal": ".",
                 "thousands": ",",
@@ -315,6 +356,11 @@
                 }
             }
         });
+
+
+
+
+
     });
 
     $("#btnActualizarEmpleado").on({
@@ -323,8 +369,7 @@
         }
     });
 
-    function fcnGuardarTrabajador()
-    {
+    function fcnGuardarTrabajador() {
         //Implement require validator
         let primerNombre = $('#txtPrimerNombre').val();
         let segundoNombre = $('#txtSegundoNombre').val();
@@ -346,14 +391,12 @@
             riseSwal("Registro de Trabajador", "El campo Primer Apellido es requerido.", "error");
             return false;
         }
-        else if (cedula === "")
-        {
+        else if (cedula === "") {
             riseSwal("Registro de Trabajador", "El campo Cédula es requerido.", "error");
             return false;
         }
 
-        if (cedula.length < 14)
-        {
+        if (cedula.length < 14) {
             riseSwal("Registro de Trabajador", "Ingrese una Cédula valida.", "warning");
             return false;
         }
@@ -382,23 +425,22 @@
             }
         });
     }
-  
-    function abrirEditarTrabajador($id)
-    {
+
+    function abrirEditarTrabajador($id) {
         debugger;
 
         $('#hdfIdEmpleado').val($id);
-        
+
         $('#staticBackdrop').on('hidden.bs.modal', function () {
             $(this).find('form').trigger('reset');
         })
         $('#staticBackdrop').modal('show');
         //$('.modal-body').html('<div class="container-fluid"><form id = "frmModalTrabajador" ><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtPrimerNombreEdit">Primer Nombre:</label><input class="form-control" type="text" name="txtPrimerNombreEdit" required id="txtPrimerNombreEdit" maxlength="50" /></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtSegundoNombreEdit">Segundo Nombre:</label><input class="form-control" type="text" name="txtSegundoNombreEdit" id="txtSegundoNombreEdit" maxlength="50" /></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtPrimerApellidoEdit">Primer Apellido:</label><input class="form-control" type="text" name="txtPrimerApellidoEdit" required id="txtPrimerApellidoEdit" maxlength="50" /></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtSegundoApellidoEdit">Segundo Apellido:</label><input class="form-control" type="text" name="txtSegundoApellidoEdit" id="txtSegundoApellidoEdit" maxlength="50" /></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtCedulaEdit">C&eacute;dula:</label><input class="form-control" type="text" name="txtCedulaEdit" required id="txtCedulaEdit" placeholder="001-010190-0001A" /></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtTelefonoEdit">Telef&oacute;no:</label><input class="form-control" type="text" name="txtTelefonoEdit" id="txtTelefonoEdit" placeholder="8888-8888" /></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="slcDepartamentoEdit">Departamento:</label><select class="form-select form-control" id="slcDepartamentoEdit" style="font-size:14px" name="slcDepartamentoEdit"></select></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtCorreoEdit">Correo electr&oacute;nico:</label><input type="email" id="txtCorreoEdit" name="txtCorreoEdit" class="form-control" maxlength="100"></div></div></div> <div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="slcSucursalEdit">Sucursal:</label><select class="form-select form-control" id="slcSucursalEdit" style="font-size:14px" name="slcSucursalEdit"></select></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="slcCargoEdit">Cargo:</label><select class="form-select form-control select-ctrl" id="slcCargoEdit" style="font-size:14px" name="slcCargoEdit"></select></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtDomicilioEdit">Domicilio:</label><input type="text" id="txtDomicilioEdit" name="txtDomicilioEdit" class="form-control form-input-custom" maxlength="300"> </div></div></div></form></div>');
-        
+
         $.ajax({
             url: '/Administracion/ConsultarTrabajador',
             type: 'GET',
-            data: {intIdEmpleado: $id },
+            data: { intIdEmpleado: $id },
             dataType: 'json',
             success: function (response) {
                 if (response.success) {
@@ -418,7 +460,7 @@
                     fcnConsultarEstado(response.data[0].ESTADO);
                     fcnConsultarSucursal(response.data[0].SUCURSAL);
 
-                    
+
                 }
                 else {
                     riseSwal("Error Actualización de Trabajador", response.message, "error");
@@ -430,10 +472,9 @@
             }
         });
     }
-    
 
-    function fcnActualizarEmpleado()
-    {
+
+    function fcnActualizarEmpleado() {
         let intId = $('#hdfIdEmpleado').val();
         let primerNombre = $('#txtPrimerNombreEdit').val();
         let segundoNombre = $('#txtSegundoNombreEdit').val();
@@ -491,6 +532,102 @@
             }
         });
     }
+
+    
+
+    function abrirEliminarTrabajador($id) {
+        Swal.fire({
+            title: "¿Desea eliminar este trabajador?",
+            text: "Se eliminará de forma permanete.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/Administracion/EliminarTrabajador',
+                    type: 'POST',
+                    data: {
+                        strIdTrabajador: $id
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            debugger;
+                            riseSwal("Trabajador Eliminado", response.message, "success");
+                            dtEmpleado.ajax.reload();
+                        }
+                        else {
+                            riseSwal("Error Eliminación de Trabajador", response.message, "error");
+                        }
+                    },
+                    error: function (error) {
+                        console.log("AJAX Error", error.responseText);
+                        riseSwal("Error Eliminación de Trabajador", "Se produjó un error inesperado. Intentelo más tarde.", "error");
+                    }
+                });
+            }
+        });
+    }
+
+    function abrirHistorialTrabajador($id)
+    {
+        //alert("Abre modal historial");
+        $('#mHistorialTrabajadores').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        })
+        $('#mHistorialTrabajadores').modal('show');
+
+        let dtHistorialEmpleado;
+        if ($.fn.DataTable.isDataTable('#tblHistorialEmpleado')) {
+            $('#tblHistorialEmpleado').DataTable().destroy();
+        }
+
+        dtHistorialEmpleado = $('#tblHistorialEmpleado').DataTable({
+            ajax: {
+                url: '/Administracion/ConsultarHistorialTrabajador',
+                type: 'GET',
+                data: { intIdEmpleado: $id },
+                datatype: 'json',
+            },
+            columns: [
+                { "data": "TRABAJADOR" },
+                { "data": "SUCURSAL" },
+                { "data": "FECHA" }
+            ],
+            fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                if (aData.ESTADO == true) {
+                    $('td', nRow).css('background-color', 'rgb(165 241 166)');
+                } else {
+                    $('td', nRow).css('background-color', 'rgb(255 131 131)');
+                }
+            },
+            language: {
+                "decimal": ".",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+
+
+    }
+
     function fcnConsultarEstado(intEstado) {
         $('#slcEstadoEdit').children().remove();
         let fila = "";
@@ -515,19 +652,15 @@
         });
     }
 
-    function fcnConsultarDepartamentos(intIdDepto)
-    {
+    function fcnConsultarDepartamentos(intIdDepto) {
         $('#slcDepartamentoEdit').children().remove();
         $.getJSON("/Administracion/ListarDepartamentos", function (data) {
             let fila = "";
-            for (let i = 0; i < data.data.length; i++)
-            {
-                if (data.data[i].ID === intIdDepto)
-                {
+            for (let i = 0; i < data.data.length; i++) {
+                if (data.data[i].ID === intIdDepto) {
                     fila += "<option value='" + data.data[i].ID + "' selected>" + data.data[i].DESCRIPCION + "</option>";
                 }
-                else
-                {
+                else {
                     fila += "<option value='" + data.data[i].ID + "'>" + data.data[i].DESCRIPCION + "</option>";
                 }
             }
@@ -552,10 +685,6 @@
     }
 
 
-    function abrirEliminarTrabajador($id) {
-        alert("Eliminando trabajador" + $id);
-    }
-
     $.ajax({
         url: '/Administracion/ListarDepartamentos',
         type: 'GET',
@@ -566,6 +695,24 @@
                     {
                         value: data.data[i].ID,
                         text: data.data[i].DESCRIPCION
+                    }
+                ));
+            }
+        },
+        error: function (error) {
+        }
+    });
+
+    $.ajax({
+        url: '/Administracion/ListarSucursales',
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            for (let i = 0; i < data.data.length; i++) {
+                $('#slcSucursal').append($('<option>',
+                    {
+                        value: data.data[i].ID,
+                        text: data.data[i].NOMBRE
                     }
                 ));
             }
@@ -591,6 +738,8 @@
         error: function (error) {
         }
     });
+
+
 
     function riseSwal(strTitle, strText, strIcon) {
         Swal.fire({

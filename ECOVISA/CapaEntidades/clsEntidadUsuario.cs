@@ -16,5 +16,7 @@ namespace CapaEntidades
         public Boolean Estado  { get; set; }
         public int IdEmpleado { get; set; }
         public int IdGrupo { get; set; }
+        public int IdSucursal { get; set; }
+
     }
 }
