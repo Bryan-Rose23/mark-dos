@@ -12,7 +12,7 @@ namespace CapaDatos
     public class clsDatoTrabajador
     {
         clsEntidadConexion cn = new clsEntidadConexion();
-                
+        
         public void GuardarTrabajador(clsEntidadTrabajador ceTrabajador, int intIdSucursal)
         {
             using (SqlConnection con = new SqlConnection(cn.CadenaConexion())) 
@@ -30,7 +30,6 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@intIdDepartamento", ceTrabajador.IdDepartamentoLaboral);
                 cmd.Parameters.AddWithValue("@intIdCargo", ceTrabajador.IdCargo);
                 cmd.Parameters.AddWithValue("@intIdSucursal", intIdSucursal);
-
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -82,31 +81,21 @@ namespace CapaDatos
                     da.Fill(dt);
                 }
             }
+            return dt;
+        }
+        public DataTable ConsultarHistorialTrabajador(int intIdTrabajador)
+        {
+            DataTable dt = new DataTable();
 
-            /*using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
             {
-                /*using (SqlCommand cmd = new SqlCommand("PCDCONSULTAR_EMPLEADO", con))
+                using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTARHISTORIAL_EMPLEADO", con))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@intIdTrabajador", intIdTrabajador);
-
-                    con.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        dt.Load(dr);
-                    }
-                }*
-            *using (SqlDataAdapter da = new SqlDataAdapter("PCDCONSULTAR_EMPLEADO", con))
-                {
-                   
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                    da.SelectCommand.Parameters.AddWithValue("@intIdTrabajador", intIdTrabajador);
-                   
-
+                    da.SelectCommand.Parameters.AddWithValue("@intIdEmpleado", intIdTrabajador);
                     da.Fill(dt);
-
-                }*
-            }*/
+                }
+            }
             return dt;
         }
         public DataTable ListarTrabajador() 

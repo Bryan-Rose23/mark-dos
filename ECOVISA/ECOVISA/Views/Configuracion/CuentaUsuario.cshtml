@@ -2,53 +2,156 @@
 @{
     ViewBag.Title = "CuentaUsuario";
     <link href="~/Content/css/estiloTrabajadores.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
-<div class="panel panel-primary">
-    <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
-        <h3>Cambio de Contraseña de Cuenta de Usuario</h3>
-    </div>
-    <div class="panel-body">
-        <div class="container-fluid">
-            <form class="form-inline" id="frmCuentaUsuario">
-                @{
-                    CapaNegocio.clsNegocioUsuario cnUsuario = new CapaNegocio.clsNegocioUsuario();
-                    cnUsuario.ceUsuario = (CapaEntidades.clsEntidadUsuario)Session["SesionUsuario"];
-                }
-                <div class="row mb-3">
-                    <div class="form-group">
-                        <div class="col-md-5 col-sm-6 ">
-                            <label class="boldLabel" for="lblNombreUsuario">Nombre de Usuario:</label>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <label class="singleLabel" id="lblNombreUsuario">@cnUsuario.ceUsuario.NombreUsuario</label>
-                        </div>
-                    </div>
+@if (Session["SesionUsuario"] != null)
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
+            <h3>Cambio de Contraseña de Cuenta de Usuario</h3>
+        </div>
+        <div class="panel-body">
+            <div class="container-fluid">
+                <form class="form-inline" id="frmCuentaUsuario">
+                    @{
+                        CapaNegocio.clsNegocioUsuario cnUsuario = new CapaNegocio.clsNegocioUsuario();
+                        cnUsuario.ceUsuario = (CapaEntidades.clsEntidadUsuario)Session["SesionUsuario"];
 
-                </div>
-                <div class="row mb-3">
-                    <div class="form-group">
-                        <div class="col-md-5 col-sm-6">
-                            <label class="boldLabel" for="lblNombreUsuario">Usuario:</label>
+                    }
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-6 ">
+                                <label class="boldLabel" for="lblNombreUsuario">Nombre de Usuario:</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label class="singleLabel" id="lblNombreUsuario">@cnUsuario.ceUsuario.NombreUsuario</label>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <label class="singleLabel" id="lblUsuario">@cnUsuario.ceUsuario.Usuario</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="form-group">
-                        <div class="col-md-5 col-sm-6">
-                            <label class="boldLabel" for="lblNombreUsuario">Correo de Usuario:</label>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <label class="singleLabel" id="lblUsuario">@cnUsuario.ceUsuario.Correo</label>
-                        </div>
-                    </div>
 
-                </div>
-            </form>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-6">
+                                <label class="boldLabel" for="lblNombreUsuario">Usuario:</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label class="singleLabel" id="lblUsuario">@cnUsuario.ceUsuario.Usuario</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-6">
+                                <label class="boldLabel" for="lblNombreUsuario">Correo de Usuario:</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label class="singleLabel" id="lblUsuario">@cnUsuario.ceUsuario.Correo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-6">
+                                <label class="boldLabel" for="txtContrasenaActual">Contraseña actual:</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control" type="text" name="txtContrasenaActual" id="txtContrasenaActual" maxlength="12" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-6">
+                                <label class="boldLabel" for="txtNuevaContrasena">Nueva Contraseña:</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control" type="text" name="txtNuevaContrasena" id="txtNuevaContrasena" maxlength="12" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <div class="col-md-5 col-sm-6">
+                                <label class="boldLabel" for="txtConfirmContrasena">Confirmación de Contraseña:</label>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control" type="text" name="txtConfirmContrasena" id="txtConfirmContrasena" maxlength="12" />
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="button" class="btn btn-primary" id="btnCambiarContrasena" name="btnCambiarContrasena" onclick="fcnCambiarContrasena();" style="width:120px">Guardar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdfIdUsuario" value="@cnUsuario.ceUsuario.Id" />
+                </form>
+            </div>
         </div>
     </div>
-</div>
+}
+
+
+
+<script>
+
+    function fcnCambiarContrasena() {
+        let contraseña = $('#txtContrasenaActual').val();
+        let nueva = $('#txtNuevaContrasena').val();
+        let confirmacion = $('#txtConfirmContrasena').val();
+
+        if (contraseña === "") {
+            riseSwal("Actualización de Contraseña de Usuario", "La Contraseña Actual es requerida.", "error");
+            return false;
+        }
+        else if (nueva === "") {
+            riseSwal("Actualización de Contraseña de Usuario", "La Nueva Contraseña es requerida.", "error");
+            return false;
+        }
+        else if (confirmacion === "") {
+            riseSwal("Actualización de Contraseña de Usuario", "La Confirmación de la Nueva Contraseña es requerida.", "error");
+            return false;
+        }
+        $.ajax({
+            url: '/Configuracion/ActualizarContrasena',
+            type: 'POST',
+            data: {
+                strIdTrabajador: $('#hdfIdUsuario').val(), strActual: contraseña, strContrasena: nueva, strConfirmacion: confirmacion
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    debugger;
+                    riseSwal("Registro de Trabajador", response.message, "success");
+                    dtEmpleado.ajax.reload();
+                    //cargarTabla();
+                }
+                else {
+                    riseSwal("Error Registro de Trabajador", response.message, "error");
+                }
+            },
+            error: function (error) {
+                console.log("AJAX Error", error.responseText);
+                riseSwal("Error Registro de Trabajador", "Se produjó un error inesperado. Intentelo más tarde.", "error");
+            }
+        });
+
+    }
+
+    function riseSwal(strTitle, strText, strIcon) {
+        Swal.fire({
+            heightAuto: false,
+            title: strTitle, // E.g., 'Success' or 'Error'
+            text: strText, // Your message from TempData
+            icon: strIcon, // E.g., 'success', 'error', 'info', 'warning'
+            confirmButtonText: 'Continuar',
+            closeOnClickOutside: false,// To prevent closing the alert by clicking outside
+        });
+    }
+
+</script>

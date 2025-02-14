@@ -28,5 +28,34 @@ namespace CapaDatos
                 return dt;
             }
         }
+
+        public DataTable ValidarContrasenaActual(clsEntidadUsuario ceUsuario) 
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                SqlCommand cmd = new SqlCommand("PCDVALIDAR_CONTRASENA_ACTUAL", con);
+                cmd.Parameters.AddWithValue("@intIdUsuario", ceUsuario.Id);
+                cmd.Parameters.AddWithValue("@strContrasena", ceUsuario.Contrasena);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                dt.Load(reader);
+                return dt;
+            }
+        }
+        public void CambiarContrasena(clsEntidadUsuario ceUsuario, String strNuevaContrasena)
+        {
+            using (SqlConnection con = new SqlConnection(cn.CadenaConexion()))
+            {
+                SqlCommand cmd = new SqlCommand("PCDCAMBIAR_CONTRASENA", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@intIdUsuario", ceUsuario.Id);
+                cmd.Parameters.AddWithValue("@strNuevaContrasena", strNuevaContrasena);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
     }
 }
