@@ -126,6 +126,11 @@ namespace ECOVISA.Controllers
             {
                 return Json(new { success = false, message = "Error: " + e.Message });
             }
+<<<<<<< HEAD
+=======
+
+        }
+>>>>>>> c2dcb41df0e6f4e8bab492976c4e4a682271fbb6
 
         }
         public JsonResult ListaTrabajadores()

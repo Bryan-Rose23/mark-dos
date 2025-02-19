@@ -57,6 +57,7 @@ namespace CapaNegocio
 
         public string ValidarCriteriosContrasena(String contrasena)
         {
+<<<<<<< HEAD
             int intCountCaracter = 0;
             int intCountUpper = 0;
             int intCountMin = 0;
@@ -101,6 +102,17 @@ namespace CapaNegocio
             }
 
             return "";
+=======
+            if (contrasena.Length > 7 && contrasena.Length <= 12)
+            {
+                return "";
+            }
+            else 
+            {
+                return "La contraseña debe tener entre 7 y 12 caracteres.";
+            }
+            
+>>>>>>> c2dcb41df0e6f4e8bab492976c4e4a682271fbb6
         }
     }
 }
