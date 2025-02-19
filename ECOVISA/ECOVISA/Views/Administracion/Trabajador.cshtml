@@ -82,9 +82,26 @@
             </form>
         </div>
         <hr />
-        <table id="tblEmpleado" class="table table-responsive mb-3" style="width:100%;">
+        <div class="table-responsive">
+            <table id="tblEmpleado" class="table table-responsive mb-3" cellspacing='0'>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Trabajador</td>
+                        <td>Cedula</td>
+                        <td>Telef&oacute;no</td>
+                        <td>Correo electr&oacute;nico</td>
+                        <td>Departamento</td>
+                        <td>Cargo</td>
+                        <td></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        @*<table id="tblEmpleado" class="table table-responsive mb-3" style="width:100%;">
             <thead>
                 <tr>
+                    <td></td>
                     <td>Trabajador</td>
                     <td>Cedula</td>
                     <td>Telef&oacute;no</td>
@@ -94,7 +111,7 @@
                     <td></td>
                 </tr>
             </thead>
-        </table>
+        </table>*@
     </div>
 </div>
 
@@ -273,6 +290,26 @@
 <script>
     var dtEmpleado;
 
+
+    // Formatting function for row details - modify as you need
+    function format(d) {
+        // `d` is the original data object for the row
+        return (
+            '<dl>' +
+            '<dt>Full name:</dt>' +
+            '<dd>' +
+            d.TRABAJADOR +
+            '</dd>' +
+            '<dt>Extension number:</dt>' +
+            '<dd>' +
+            d.TELEFONO +
+            '</dd>' +
+            '<dt>Extra info:</dt>' +
+            '<dd>And any further details here (images etc)...</dd>' +
+            '</dl>'
+        );
+    }
+
     $(document).ready(function () {
         $("#txtTelefono").inputmask({
             mask: "9999-9999",
@@ -315,6 +352,12 @@
                 datatype: 'json',
             },
             columns: [
+                {
+                    className: 'dt-control',
+                    orderable: false,
+                    data: null,
+                    defaultContent: ''
+                },
                 { "data": "TRABAJADOR" },
                 { "data": "CEDULA" },
                 { "data": "TELEFONO" },
@@ -329,7 +372,7 @@
                     },
                     "orderable": false,
                     "searchable": false,
-                    "width": "100px"
+                    "width": "9%"
                 }
             ],
             fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -354,14 +397,29 @@
                     "next": "Siguiente",
                     "previous": "Anterior"
                 }
-            }
+            },
+            order: [[1, 'asc']]
         });
 
 
+        // Add event listener for opening and closing details
+        dtEmpleado.on('click', 'td.dt-control', function (e) {
+            debugger;
+            let tr = e.target.closest('tr');
+            let row = dtEmpleado.row(tr);
 
-
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+            }
+            else {
+                // Open this row
+                row.child(format(row.data())).show();
+            }
+        });
 
     });
+
 
     $("#btnActualizarEmpleado").on({
         click: function () {

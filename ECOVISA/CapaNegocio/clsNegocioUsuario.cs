@@ -57,15 +57,50 @@ namespace CapaNegocio
 
         public string ValidarCriteriosContrasena(String contrasena)
         {
-            if (contrasena.Length > 7 && contrasena.Length <= 12)
+            int intCountCaracter = 0;
+            int intCountUpper = 0;
+            int intCountMin = 0;
+            int intCountNum = 0;
+            int intCountGrupos = 0;
+            //string strMensaje = "La Contraseña debe cumplir al menos tres de los cuatro criterios:   1.- Letras mayúsculas [A-Z]   2.- Letras minúsculas [a-z]   3.- Caracteres numéricos [0-9]   4.- Caracteres especial [!@#$%^&*()_+=...]";
+            System.Text.RegularExpressions.Regex upper = new System.Text.RegularExpressions.Regex("[A-Z]");
+            System.Text.RegularExpressions.Regex lower = new System.Text.RegularExpressions.Regex("[a-z]");
+            System.Text.RegularExpressions.Regex numbers = new System.Text.RegularExpressions.Regex("[0-9]");
+            System.Text.RegularExpressions.Regex special = new System.Text.RegularExpressions.Regex("[^a-zA-Z0-9]");
+
+            if (contrasena.Length < 7 || contrasena.Length > 12)
             {
-                return "";
+                return "La contraseña debe tener entre 7 y 12 caracteres."; ;
             }
-            else 
+
+            intCountUpper = upper.Matches(contrasena).Count;
+            intCountMin = lower.Matches(contrasena).Count;
+            intCountNum = numbers.Matches(contrasena).Count;
+            intCountCaracter = special.Matches(contrasena).Count;
+
+            if (intCountUpper>0) 
             {
-                return "La contraseña debe tener entre 7 y 12 caracteres.";
+                intCountGrupos = intCountGrupos + 1;
             }
-            
+            if (intCountMin > 0)
+            {
+                intCountGrupos = intCountGrupos + 1;
+            }
+            if (intCountNum > 0)
+            {
+                intCountGrupos = intCountGrupos + 1;
+            }
+            if (intCountCaracter > 0)
+            {
+                intCountGrupos = intCountGrupos + 1;
+            }
+
+            if (intCountGrupos < 3) 
+            {
+                return "La Contraseña debe cumplir al menos tres de los cuatro criterios:   1.- Letras mayúsculas [A-Z]   2.- Letras minúsculas [a-z]   3.- Caracteres numéricos [0-9]   4.- Caracteres especial [!@#$%^&*()_+=...]";
+            }
+
+            return "";
         }
     }
 }

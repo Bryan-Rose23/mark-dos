@@ -1900,6 +1900,7 @@
     <Content Include="Views\Trabajador\Index.cshtml" />
     <Content Include="Views\Administracion\Trabajador.cshtml" />
     <Content Include="Views\Configuracion\CuentaUsuario.cshtml" />
+    <Content Include="Views\Administracion\Departamentos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

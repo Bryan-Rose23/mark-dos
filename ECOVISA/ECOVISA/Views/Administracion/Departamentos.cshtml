@@ -1,0 +1,363 @@
+﻿
+@{
+    ViewBag.Title = "Departamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+}
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
+        <h4>@ViewBag.Message</h4>
+    </div>
+    <div class="panel panel-body">
+        <div class="container-fluid">
+            <form class="form-inline" action="none" method="post">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="nombre" class="control-label text-black">Nombre:</label>
+                        <input type="text" class="form-control" id="txtDescripcion" placeholder="Tu Nombre">
+                        <button type="button" class="btn btn-primary" id="btnGuardarDepartamento" name="btnGuardarTrabajador" onclick="fcnGuardarDepartamento();" >Registrar</button>
+
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table id="tblDepartamento" class="table table-responsive mb-3" cellspacing='0'>
+                <thead>
+                    <tr>
+                        <td>Descripción</td>
+                        <td>Estado</td>
+                        <td></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+</div>
+    @*<div class="panel panel-primary">
+            <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
+                <h4>@ViewBag.Message</h4>
+            </div>
+            <div class="panel panel-body">
+                <div class="container-fluid">
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="nombre" class="col-md-4 control-label">Nombre:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="nombre" placeholder="Tu Nombre">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="correo" class="col-md-4 control-label">Correo:</label>
+                                    <div class="col-md-8">
+                                        <input type="email" class="form-control" id="correo" placeholder="Tu Correo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblDepartamento" class="table table-responsive mb-3" cellspacing='0'>
+                        <thead>
+                            <tr>
+                                <td>Descripción</td>
+                                <td>Estado</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>*@
+
+    @*<div class="panel panel-primary">
+            <div class="panel-heading" style="background: rgba(31, 68, 128, 100); ">
+                <h3>@ViewBag.Message</h3>
+            </div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <form action="none" method="post" class="form-inline" id="frmRegistroDepartamento">
+                        <div class="row mb-3">
+                            <div class="form-group">
+                                <label class="lbls" for="txtDescripcion">Departamento:</label>
+                                <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control form-input-custom" maxlength="100">
+                                <button type="button" class="btn btn-primary" id="btnGuardarDepartamento" name="btnGuardarTrabajador" onclick="fcnGuardarDepartamento();" style="width:120px">Guardar</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblDepartamento" class="table table-responsive mb-3" cellspacing='0'>
+                        <thead>
+                            <tr>
+                                <td>Descripción</td>
+                                <td>Estado</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>*@
+
+
+
+    <div class="modal" role="dialog" id="modalDepartamento" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background: rgba(31, 68, 128, 100); ">
+                    <label class="lbls" style="color:white; width:100%">Actualización de Departamentos ECOVISA</label>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form id="frmModalTrabajador">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lbls" for="txtDescripcionEdit">Descripci&oacute;n:</label>
+                                        <input type="text" id="txtDescripcionEdit" name="txtDescripcionEdit" class="form-control form-input-custom" maxlength="300"> @*style="width:380px; max-width:380px"*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lbls" for="cboEstadoDepartamento">Estado:</label>
+                                        <select class="form-select form-control select-ctrl" id="cboEstadoDepartamento" style="font-size:14px" name="cboEstadoDepartamento"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <input type="hidden" id="hdfIdDepartamento" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnActualizarDepartamento">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        let dtDepartamentos;
+        $(document).ready(function () {
+            fcnCargarTabla();
+        });
+
+        $("#btnActualizarDepartamento").on({
+            click: function () {
+                fcnActualizarDepartamento();
+            }
+        });
+
+
+        function fcnGuardarDepartamento() {
+            let descripcion = $('#txtDescripcion').val();
+
+            if (descripcion === "") {
+                alert("La descripción del Departamento es requerida.");
+                //riseSwal("Registro de Departamento", "La descripción del Departamento es requerida.", "error");
+                return false;
+            }
+            $.ajax({
+                url: '/Administracion/GuardarDepartamento',
+                type: 'POST',
+                data: {
+                    strDescripcion: descripcion
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        debugger;
+                        alert(response.message);
+                        //riseSwal("Registro de Departamento", response.message, "success");
+                        dtDepartamentos.ajax.reload();
+                    }
+                    else {
+                        alert(response.message);
+                        //riseSwal("Error Registro de Departamento", response.message, "error");
+                    }
+                },
+                error: function (error) {
+                    console.log("AJAX Error", error.responseText);
+                    alert(response.message);
+                   // riseSwal("Error Registro de Departamento", "Se produjó un error inesperado. Intentelo más tarde.", "error");
+                }
+            });
+        }
+
+        function fcnActualizarDepartamento() {
+            let descripcion = $('#txtDescripcionEdit').val();
+            let estado = $('#cboEstadoDepartamento').find(":selected").val();
+            let intId = $('#hdfIdDepartamento').val();
+
+            if (descripcion === "") {
+                alert("La descripción del Departamento es requerida.");
+                //riseSwal("Registro de Departamento", "La descripción del Departamento es requerida.", "error");
+                return false;
+            }
+            $.ajax({
+                url: '/Administracion/ActualizarDepartamento',
+                type: 'POST',
+                data: {
+                    strDescripcion: descripcion, boolEstado: estado, strIdDepartamento: intId
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        debugger;
+                        alert(response.message);
+                        //riseSwal("Registro de Departamento", response.message, "success");
+                        dtDepartamentos.ajax.reload();
+                    }
+                    else {
+                        alert(response.message);
+                        //riseSwal("Error Registro de Departamento", response.message, "error");
+                    }
+                },
+                error: function (error) {
+                    console.log("AJAX Error", error.responseText);
+                    alert(response.message);
+                    // riseSwal("Error Registro de Departamento", "Se produjó un error inesperado. Intentelo más tarde.", "error");
+                }
+            });
+        }
+
+        function abrirEditarDepartamento($id) {
+            debugger;
+
+            $('#hdfIdDepartamento').val($id);
+
+            $('#modalDepartamento').on('hidden.bs.modal', function () {
+                $(this).find('form').trigger('reset');
+            })
+            $('#modalDepartamento').modal('show');
+            //$('.modal-body').html('<div class="container-fluid"><form id = "frmModalTrabajador" ><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtPrimerNombreEdit">Primer Nombre:</label><input class="form-control" type="text" name="txtPrimerNombreEdit" required id="txtPrimerNombreEdit" maxlength="50" /></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtSegundoNombreEdit">Segundo Nombre:</label><input class="form-control" type="text" name="txtSegundoNombreEdit" id="txtSegundoNombreEdit" maxlength="50" /></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtPrimerApellidoEdit">Primer Apellido:</label><input class="form-control" type="text" name="txtPrimerApellidoEdit" required id="txtPrimerApellidoEdit" maxlength="50" /></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtSegundoApellidoEdit">Segundo Apellido:</label><input class="form-control" type="text" name="txtSegundoApellidoEdit" id="txtSegundoApellidoEdit" maxlength="50" /></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtCedulaEdit">C&eacute;dula:</label><input class="form-control" type="text" name="txtCedulaEdit" required id="txtCedulaEdit" placeholder="001-010190-0001A" /></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtTelefonoEdit">Telef&oacute;no:</label><input class="form-control" type="text" name="txtTelefonoEdit" id="txtTelefonoEdit" placeholder="8888-8888" /></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="slcDepartamentoEdit">Departamento:</label><select class="form-select form-control" id="slcDepartamentoEdit" style="font-size:14px" name="slcDepartamentoEdit"></select></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtCorreoEdit">Correo electr&oacute;nico:</label><input type="email" id="txtCorreoEdit" name="txtCorreoEdit" class="form-control" maxlength="100"></div></div></div> <div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="slcSucursalEdit">Sucursal:</label><select class="form-select form-control" id="slcSucursalEdit" style="font-size:14px" name="slcSucursalEdit"></select></div></div><div class="col-md-6"><div class="form-group"><label class="lbls" for="slcCargoEdit">Cargo:</label><select class="form-select form-control select-ctrl" id="slcCargoEdit" style="font-size:14px" name="slcCargoEdit"></select></div></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label class="lbls" for="txtDomicilioEdit">Domicilio:</label><input type="text" id="txtDomicilioEdit" name="txtDomicilioEdit" class="form-control form-input-custom" maxlength="300"> </div></div></div></form></div>');
+
+            $.ajax({
+                url: '/Administracion/ConsultarDepartamento',
+                type: 'GET',
+                data: { intIdDepartamento: $id },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        debugger;
+                        //txtPrimerNombreEdit txtSegundoNombreEdit txtPrimerApellidoEdit txtSegundoApellidoEdit txtCedulaEdit txtTelefonoEdit slcDepartamentoEdit txtCorreoEdit slcSucursalEdit slcCargoEdit txtDomicilioEdit
+                        console.log(response.data[0]);
+                        console.log(response.data[0].DESCRIPCION);
+                        console.log(response.data[0].ESTADO);
+                        $('#txtDescripcionEdit').val(response.data[0].DESCRIPCION);
+                        fcnConsultarEstado(response.data[0].ESTADO);
+                    }
+                    else {
+                        riseSwal("Error Actualización de Departamento", response.message, "error");
+                    }
+                },
+                error: function (error) {
+                    console.log("AJAX Error", error.responseText);
+                    riseSwal("Error Actualización de Departamento", "Se produjó un error inesperado. Intentelo más tarde.", "error");
+                }
+            });
+        }
+        function fcnConsultarEstado(intEstado) {
+            $('#cboEstadoDepartamento').children().remove();
+            let fila = "";
+            fila += "<option value='0' " + (intEstado === false ? "selected" : "") + ">Inactivo</option>";
+            fila += "<option value='1' " + (intEstado === true ? "selected" : "") + ">Activo</option>";
+            $('#cboEstadoDepartamento').html(fila);
+        }
+
+        function fcnCargarTabla() {
+            if ($.fn.DataTable.isDataTable('#tblDepartamento')) {
+                $('#tblDepartamento').DataTable().destroy();
+            }
+
+            dtDepartamentos = $('#tblDepartamento').DataTable({
+                ajax: {
+                    url: '/Administracion/ListarDepartamentos',
+                    type: 'GET',
+                    datatype: 'json',
+                },
+                columns: [
+
+                    { "data": "DESCRIPCION" },
+                    { "data": "STRESTADO" },
+                    {
+                        "data": "ID", "render": function (data) {
+                            return "<button class='btn btn-warning btn-sm' type='button' onclick='abrirEditarDepartamento(" + data + ")'><i class='bx bxs-edit'></i></button>" +
+                                "<button class='btn btn-danger btn-sm ms-2' type='button' onclick='abrirEliminarDepartamento(" + data + ")'><i class='bx bxs-trash'></i></button>"
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "100px"
+                    }
+                ],
+                fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.ESTADO == true) {
+                        $('td', nRow).css('background-color', 'rgb(165 241 166)');
+                    } else {
+                        $('td', nRow).css('background-color', 'rgb(255 131 131)');
+                    }
+                },
+                language: {
+                    "decimal": ".",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                order: [[1, 'asc']]
+            });
+        }
+
+
+        function riseSwal(strTitle, strText, strIcon) {
+            Swal.fire({
+                heightAuto: false,
+                title: strTitle, // E.g., 'Success' or 'Error'
+                text: strText, // Your message from TempData
+                icon: strIcon, // E.g., 'success', 'error', 'info', 'warning'
+                confirmButtonText: 'Continuar',
+                closeOnClickOutside: false,// To prevent closing the alert by clicking outside
+            });
+        }
+    </script>

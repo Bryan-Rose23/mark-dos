@@ -34,10 +34,12 @@ SELECT * FROM TBLUSUARIO;
 EXEC PCDINSERTAR_MENU 'Inicio', 'Home/Index', 0;
 EXEC PCDINSERTAR_MENU 'Administración', null, 0;
 EXEC PCDINSERTAR_MENU 'Personal', 'Administracion/Trabajador', 2;
+EXEC PCDINSERTAR_MENU 'Departamentos', 'Administracion/Departamentos', 2;
 EXEC PCDINSERTAR_MENU 'Ventas', null, 0;
 EXEC PCDINSERTAR_MENU 'Inventario', null, 0;
 EXEC PCDINSERTAR_MENU 'Catálogos', null, 0;
 EXEC PCDINSERTAR_MENU 'Configuración', null, 0;
+
 
 EXEC PCDINSERTAR_SUCURSAL 'ECOVISA CENTRAL', 'Bo. René Polanco del Centro de Salud Carlos Rugama 30vrs al Oeste.'
 

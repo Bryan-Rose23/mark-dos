@@ -128,12 +128,12 @@ namespace ECOVISA.Controllers
             }
 
         }
-
         public JsonResult ListaTrabajadores()
         {
             clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
             return Json(new { data = utilidades.DataTableToSerealize(cnTrabajador.cdTrabajador.ListarTrabajador()) }, JsonRequestBehavior.AllowGet);
         }
+
 
 
 
@@ -144,6 +144,75 @@ namespace ECOVISA.Controllers
             return Json(new { data = utilidades.DataTableToSerealize(cnSucursal.cdSucursal.ListarSucursal()) }, JsonRequestBehavior.AllowGet);
         }
 
+        
+
+
+
+
+        [HttpGet]
+        public PartialViewResult Departamentos()
+        {
+            ViewBag.Message = "Departamentos Laborales ECOVISA";
+            Session["TARGET_PAGE"] = "/Administracion/Departamentos";
+            return PartialView();
+        }
+        [HttpPost]
+        public JsonResult GuardarDepartamento(string strDescripcion)
+        {
+            try
+            {
+                clsNegocioDepartamento cnDepartamento = new clsNegocioDepartamento();
+                cnDepartamento.ceDepartamento.Descripcion = strDescripcion;
+                cnDepartamento.cdDepartamento.GuardarDepartamento(cnDepartamento.ceDepartamento);
+                return Json(new { success = true, message = "Se guardó nuevo departamento satisfactoriamente." });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
+
+        }
+        [HttpPost]
+        public JsonResult ActualizarDepartamento(string strIdDepartamento, string strDescripcion, string boolEstado)
+        {
+            try
+            {
+                clsNegocioDepartamento cnDepartamento = new clsNegocioDepartamento();
+                cnDepartamento.ceDepartamento.Id = Convert.ToInt32(strIdDepartamento);
+                cnDepartamento.ceDepartamento.Descripcion = strDescripcion;
+                cnDepartamento.ceDepartamento.Estado = boolEstado == "0" ? false : true;
+
+                cnDepartamento.cdDepartamento.ActualizarDepartamento(cnDepartamento.ceDepartamento);
+                return Json(new { success = true, message = "Se actualizó el departamento satisfactoriamente." });
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
+
+        }
+
+        [HttpGet]
+        public JsonResult ConsultarDepartamento(string intIdDepartamento)
+        {
+            try
+            {
+                clsNegocioDepartamento cnDepartamento = new clsNegocioDepartamento();
+                return Json(new { success = true, data = utilidades.DataTableToSerealize(cnDepartamento.cdDepartamento.ConsultarDepartamento(Convert.ToInt32(intIdDepartamento))) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Error: " + e.Message });
+            }
+
+        }
+        public JsonResult ListarDepartamentos()
+        {
+            clsNegocioDepartamento cnDepartamento = new clsNegocioDepartamento();
+            return Json(new { data = utilidades.DataTableToSerealize(cnDepartamento.cdDepartamento.ListarDepartamentos()) }, JsonRequestBehavior.AllowGet);
+        }
+
+
         public JsonResult ListarCargos()
         {
             clsNegocioCargo cnCargo = new clsNegocioCargo();
@@ -151,18 +220,14 @@ namespace ECOVISA.Controllers
         }
 
 
-        public JsonResult ListarDepartamentos()
-        {
-            clsNegocioDepartamento cnDepartamento = new clsNegocioDepartamento();
-            return Json(new { data = utilidades.DataTableToSerealize(cnDepartamento.cdDepartamento.ListarDepartamentos()) }, JsonRequestBehavior.AllowGet);
-        }
 
-        public JsonResult ListarTrabajadoresList()
+
+        /*public JsonResult ListarTrabajadoresList()
         {
             clsNegocioTrabajador cnTrabajador = new clsNegocioTrabajador();
             return Json(new { data = cnTrabajador.cdTrabajador.ListarTrabajadorLista() }, JsonRequestBehavior.AllowGet);
             //  return Json(new { data = cnTrabajador.cdTrabajador.ListarTrabajador() }, JsonRequestBehavior.AllowGet);
-        }
+        }*/
 
     }
 }

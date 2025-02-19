@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/Plugin/css")
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -14,19 +13,16 @@
     <link href="~/Content/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/boxicons-2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link href="~/Content/css/boxicons-2.1.4/css/boxicons.css" rel="stylesheet" />
-
     <script src="~/Content/js/bootstrap/bootstrap.bundle.min.js"></script>
 
     <script src="~/Content/js/jquery-3.4.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
-    @*<script src="~/Scripts/jquery.mask.js"></script>
-        <script src="~/Scripts/jquery.mask.min.js"></script>*@
 
 
     <link href="~/Content/css/estiloLayout.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
 
 
 </head>
@@ -175,7 +171,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Content/Plugin/js")
+    @Scripts.Render(" ~/Content/Plugin/js")
+   
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     @RenderSection("scripts", required: false)
 
 
@@ -204,9 +202,8 @@
             });
         }
 
-        function fcnCerrarSesion()
-        {
-           
+        function fcnCerrarSesion() {
+
             debugger;
             $.ajax({
                 url: '../Home/CerrarSesion',  // Send a GET request to the server
@@ -217,11 +214,10 @@
                     if (response.success) {
                         window.location.href = "../Acceso/Login";
                     }
-                    else
-                    {
+                    else {
                         alert("No se pudo cerrar sesion");
                     }
-                    
+
                 },
                 error: function () {
                     alert("Error loading content.");
